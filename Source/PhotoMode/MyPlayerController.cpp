@@ -2,27 +2,35 @@
 
 
 #include "MyPlayerController.h"
-
 #include "EnhancedInputComponent.h"
+#include "EnhancedInputSubsystems.h"
+#include "InputMappingContext.h"
 #include "Kismet/GameplayStatics.h"
-
 
 
 void AMyPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	APawn* PlayerCharacter = UGameplayStatics::GetPlayerPawn(GetWorld(),0);
-}
-
-void AMyPlayerController::SetupInputComponent()
-{
-	Super::SetupInputComponent();
-
-	if (InputComponent)
+	//////////////////////////////////////////////////////////////////////////
+	// Input
+	// Ensure the Input Subsystem is set up for the player
+	if (APlayerController* PC = Cast<APlayerController>(this))
 	{
-		InputComponent->BindAction("PhotoModeAction", IE_Pressed, this, &AMyPlayerController::TogglePhotoMode);
+		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PC->GetLocalPlayer()))
+		{
+			// Create and add the input mapping context
+			Subsystem->AddMappingContext(DefaultMappingContext, 0);
+		}
 	}
+	// Set up action bindings
+	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(InputComponent))
+	{
+		EnhancedInputComponent->BindAction(PhotoModeAction, ETriggerEvent::Started, this, &AMyPlayerController::TogglePhotoMode);
+	}
+	//////////////////////////////////////////////////////////////////////////
+
+	APawn* PlayerCharacter = UGameplayStatics::GetPlayerPawn(GetWorld(),0);
 }
 
 
