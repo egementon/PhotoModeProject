@@ -4,14 +4,20 @@
 #include "MyPlayerController.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
-#include "InputMappingContext.h"
 #include "Kismet/GameplayStatics.h"
+
+AMyPlayerController::AMyPlayerController()
+{
+	bIsPhotoModeActive = false;
+	// needed to move pawn and camera
+	bShouldPerformFullTickWhenPaused = true;
+}
 
 
 void AMyPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-
+	
 	//////////////////////////////////////////////////////////////////////////
 	// Input
 	// Ensure the Input Subsystem is set up for the player
@@ -30,7 +36,10 @@ void AMyPlayerController::BeginPlay()
 	}
 	//////////////////////////////////////////////////////////////////////////
 
-	APawn* PlayerCharacter = UGameplayStatics::GetPlayerPawn(GetWorld(),0);
+	PlayerCharacter = UGameplayStatics::GetPlayerPawn(GetWorld(),0);
+	
+	// needed to fix TXAA/MotionBlur glitches
+	GetWorld()->bIsCameraMoveableWhenPaused = true;
 }
 
 
@@ -41,13 +50,21 @@ void AMyPlayerController::TogglePhotoMode()
 	if (bIsPhotoModeActive)
 	{
 		// Logic to enable photo mode
-		UE_LOG(LogTemp, Warning, TEXT("Photo Mode Enabled"));
-		// Add your custom code to enable photo mode, such as pausing the game, changing the camera, etc.
+		const APlayerCameraManager* CameraManager = UGameplayStatics::GetPlayerCameraManager(this, 0);
+		const FVector Location = CameraManager->GetTransform().GetLocation();
+		const FRotator Rotation = CameraManager->GetTransform().GetRotation().Rotator();
+		FActorSpawnParameters SpawnInfo;
+		PhotoModeCamera = Cast<APawn>(GetWorld()->SpawnActor<AActor>(ActorToSpawn, Location, Rotation));
+		UnPossess();
+		Possess(PhotoModeCamera);
+		UGameplayStatics::SetGamePaused(this, true);
 	}
 	else
 	{
 		// Logic to disable photo mode
-		UE_LOG(LogTemp, Warning, TEXT("Photo Mode Disabled"));
-		// Add your custom code to disable photo mode, such as resuming the game, reverting camera changes, etc.
+		UnPossess();
+		Possess(PlayerCharacter);
+		PhotoModeCamera->Destroy();
+		UGameplayStatics::SetGamePaused(this, false);
 	}
 }

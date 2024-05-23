@@ -16,14 +16,15 @@ class PHOTOMODE_API AMyPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 
+public:
+	AMyPlayerController();
+	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	/** Called for movement input */
-	void TogglePhotoMode();
-
 public:
+
 	/** Input and Actions */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputMappingContext* DefaultMappingContext;
@@ -31,5 +32,16 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* PhotoModeAction;
 	
+	void TogglePhotoMode();
+	
 	bool bIsPhotoModeActive;
+
+	UPROPERTY(EditAnywhere, Category = Camera)
+	TSubclassOf<AActor> ActorToSpawn;
+
+	UPROPERTY()
+	APawn* PhotoModeCamera;
+
+	UPROPERTY()
+	APawn* PlayerCharacter;
 };

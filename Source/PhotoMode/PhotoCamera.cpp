@@ -14,6 +14,7 @@ APhotoCamera::APhotoCamera()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+
 	bUseControllerRotationPitch = true;
 	bUseControllerRotationYaw = true;
 
@@ -22,6 +23,10 @@ APhotoCamera::APhotoCamera()
 
 	FloatingPawnMovement = CreateDefaultSubobject<UFloatingPawnMovement>(TEXT("FloatingPawnMovement"));
 
+	// Important for moving camera when game paused!
+	SetTickableWhenPaused(true);
+	Camera->SetTickableWhenPaused(true);
+	FloatingPawnMovement->SetTickableWhenPaused(true);
 }
 
 // Called when the game starts or when spawned
