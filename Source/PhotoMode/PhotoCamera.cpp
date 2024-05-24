@@ -9,6 +9,8 @@
 #include "Blueprint/UserWidget.h"
 #include "Components/SceneCaptureComponent2D.h"
 #include "Kismet/KismetRenderingLibrary.h"
+#include "Kismet/KismetSystemLibrary.h"
+
 
 
 // Sets default values
@@ -30,11 +32,14 @@ APhotoCamera::APhotoCamera()
 	SceneCaptureComponent->SetupAttachment(Camera);
 	SceneCaptureComponent->bCaptureEveryFrame = false;
 	SceneCaptureComponent->bCaptureOnMovement = false;
+	SceneCaptureComponent->CaptureSource = SCS_FinalColorLDR;
 	
 	// Important for moving camera when game paused!
 	SetTickableWhenPaused(true);
 	Camera->SetTickableWhenPaused(true);
 	FloatingPawnMovement->SetTickableWhenPaused(true);
+
+	PhotoGamma = 2.f;
 }
 
 // Called when the game starts or when spawned
@@ -50,7 +55,6 @@ void APhotoCamera::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
-	
 }
 
 // Called every frame
@@ -116,11 +120,23 @@ void APhotoCamera::Capture()
 {
 	if (Controller != nullptr)
 	{
-		//SceneCaptureComponent->TextureTarget = UKismetRenderingLibrary::CreateRenderTarget2D(this,1920,1080);
+		UTextureRenderTarget2D* RenderTarget = UKismetRenderingLibrary::CreateRenderTarget2D(this,1920,1080, RTF_RGBA8);
+		RenderTarget->TargetGamma = PhotoGamma;
+		SceneCaptureComponent->TextureTarget = RenderTarget;
 		SceneCaptureComponent->CaptureScene();
+
+		// Play Flash Effect
 		if (UUserWidget* FlashWidgetInstance = CreateWidget<UUserWidget>(GetWorld(), FlashWidgetClass))
 		{
 			FlashWidgetInstance->AddToViewport();
 		}
+
+		// Export Image
+		FString TimeString = FDateTime::Now().ToString();
+		UKismetRenderingLibrary::ExportRenderTarget(this,
+			SceneCaptureComponent->TextureTarget,
+			UKismetSystemLibrary::GetProjectSavedDirectory(),
+			TimeString += TEXT(".png")
+			);
 	}
 }

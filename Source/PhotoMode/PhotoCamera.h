@@ -67,7 +67,12 @@ public:
 	// Scene Capture component
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
 	USceneCaptureComponent2D* SceneCaptureComponent;
-	
+
+	// Flash Effect Widget
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widget")
 	TSubclassOf<UUserWidget> FlashWidgetClass;
+
+	// Render Target Gamma
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variable")
+	float PhotoGamma;
 };
