@@ -55,6 +55,14 @@ void APhotoCamera::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
+
+	// Create Widget of Photo Mode Menu
+	PhotoModeMenuWidgetInstance = CreateWidget<UPhotoModeMenuWidget>(GetWorld(), PhotoModeMenuWidgetClass);
+	if (PhotoModeMenuWidgetInstance)
+	{
+		PhotoModeMenuWidgetInstance->SetPhotoCamera(this);
+		PhotoModeMenuWidgetInstance->AddToViewport();
+	}
 }
 
 // Called every frame
@@ -76,7 +84,7 @@ void APhotoCamera::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 		//Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &APhotoCamera::Look);
 
-		//Looking
+		//Capturing
 		EnhancedInputComponent->BindAction(CaptureAction, ETriggerEvent::Triggered, this, &APhotoCamera::Capture);
 	}
 }
@@ -138,5 +146,14 @@ void APhotoCamera::Capture()
 			UKismetSystemLibrary::GetProjectSavedDirectory(),
 			TimeString += TEXT(".png")
 			);
+	}
+}
+
+void APhotoCamera::Destroyed()
+{
+	Super::Destroyed();
+	if (PhotoModeMenuWidgetInstance)
+	{
+		PhotoModeMenuWidgetInstance->RemoveFromParent();
 	}
 }

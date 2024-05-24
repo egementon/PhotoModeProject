@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "InputActionValue.h"
+#include "PhotoModeMenuWidget.h"
 #include "GameFramework/Pawn.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/FloatingPawnMovement.h"
-#include "Blueprint/UserWidget.h" 
+#include "Blueprint/UserWidget.h"
 #include "PhotoCamera.generated.h"
 
 UCLASS()
@@ -72,7 +73,16 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widget")
 	TSubclassOf<UUserWidget> FlashWidgetClass;
 
+	// Photo Mode Menu Widget
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widget")
+	TSubclassOf<UPhotoModeMenuWidget> PhotoModeMenuWidgetClass;
+
+	UPROPERTY()
+	UPhotoModeMenuWidget* PhotoModeMenuWidgetInstance;
+
 	// Render Target Gamma
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variable")
 	float PhotoGamma;
+
+	void Destroyed() override;
 };
