@@ -7,6 +7,7 @@
 #include "GameFramework/Pawn.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/FloatingPawnMovement.h"
+#include "Blueprint/UserWidget.h" 
 #include "PhotoCamera.generated.h"
 
 UCLASS()
@@ -28,6 +29,9 @@ protected:
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
 
+	/** Called for capture input */
+	void Capture();
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -35,13 +39,6 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	
-	// Camera component
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
-	UCameraComponent* Camera;
-
-	// Floating pawn movement component
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Movement")
-	UFloatingPawnMovement* FloatingPawnMovement;
 
 	/** MappingContext */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
@@ -55,4 +52,22 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* LookAction;
 
+	/** Capture Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	class UInputAction* CaptureAction;
+
+	// Camera component
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
+	UCameraComponent* Camera;
+
+	// Floating pawn movement component
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Movement")
+	UFloatingPawnMovement* FloatingPawnMovement;
+
+	// Scene Capture component
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
+	USceneCaptureComponent2D* SceneCaptureComponent;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widget")
+	TSubclassOf<UUserWidget> FlashWidgetClass;
 };

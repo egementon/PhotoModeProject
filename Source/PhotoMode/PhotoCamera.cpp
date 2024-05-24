@@ -6,6 +6,9 @@
 #include "EnhancedInputComponent.h"
 #include "Components/InputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "Blueprint/UserWidget.h"
+#include "Components/SceneCaptureComponent2D.h"
+#include "Kismet/KismetRenderingLibrary.h"
 
 
 // Sets default values
@@ -22,7 +25,12 @@ APhotoCamera::APhotoCamera()
 	Camera->SetupAttachment(RootComponent);
 
 	FloatingPawnMovement = CreateDefaultSubobject<UFloatingPawnMovement>(TEXT("FloatingPawnMovement"));
-
+	
+	SceneCaptureComponent = CreateDefaultSubobject<USceneCaptureComponent2D>(TEXT("SceneCaptureComponent"));
+	SceneCaptureComponent->SetupAttachment(Camera);
+	SceneCaptureComponent->bCaptureEveryFrame = false;
+	SceneCaptureComponent->bCaptureOnMovement = false;
+	
 	// Important for moving camera when game paused!
 	SetTickableWhenPaused(true);
 	Camera->SetTickableWhenPaused(true);
@@ -63,6 +71,9 @@ void APhotoCamera::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 
 		//Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &APhotoCamera::Look);
+
+		//Looking
+		EnhancedInputComponent->BindAction(CaptureAction, ETriggerEvent::Triggered, this, &APhotoCamera::Capture);
 	}
 }
 
@@ -98,5 +109,18 @@ void APhotoCamera::Look(const FInputActionValue& Value)
 		// add yaw and pitch input to controller
 		AddControllerYawInput(LookAxisVector.X);
 		AddControllerPitchInput(LookAxisVector.Y);
+	}
+}
+
+void APhotoCamera::Capture()
+{
+	if (Controller != nullptr)
+	{
+		//SceneCaptureComponent->TextureTarget = UKismetRenderingLibrary::CreateRenderTarget2D(this,1920,1080);
+		SceneCaptureComponent->CaptureScene();
+		if (UUserWidget* FlashWidgetInstance = CreateWidget<UUserWidget>(GetWorld(), FlashWidgetClass))
+		{
+			FlashWidgetInstance->AddToViewport();
+		}
 	}
 }
