@@ -39,6 +39,9 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	// Limit movement
+	void LimitMaxDistance();
 	
 
 	/** MappingContext */
@@ -57,6 +60,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* CaptureAction;
 
+	
 	// Camera component
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
 	UCameraComponent* Camera;
@@ -69,6 +73,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
 	USceneCaptureComponent2D* SceneCaptureComponent;
 
+	
 	// Flash Effect Widget
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widget")
 	TSubclassOf<UUserWidget> FlashWidgetClass;
@@ -83,6 +88,10 @@ public:
 	// Render Target Gamma
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Adjustable")
 	float PhotoGamma;
+
+	// Camera Movement Distance Limit
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Adjustable")
+	float MaxDistance = 1500.f;
 
 	void Destroyed() override;
 

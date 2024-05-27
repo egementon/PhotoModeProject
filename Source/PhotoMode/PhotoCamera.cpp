@@ -70,6 +70,7 @@ void APhotoCamera::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	LimitMaxDistance();
 }
 
 // Called to bind functionality to input
@@ -86,6 +87,19 @@ void APhotoCamera::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 
 		//Capturing
 		EnhancedInputComponent->BindAction(CaptureAction, ETriggerEvent::Triggered, this, &APhotoCamera::Capture);
+	}
+}
+
+void APhotoCamera::LimitMaxDistance()
+{
+	const FVector CameraLoc = GetActorLocation();
+	const FVector PlayerLoc = PlayerCharacter->GetActorLocation();
+	const float Distance = FVector::Dist(CameraLoc, PlayerLoc);
+	if (Distance > MaxDistance)
+	{
+		const FVector Direction = (CameraLoc - PlayerLoc).GetSafeNormal();
+		const FVector NewLocation = PlayerLoc + Direction * MaxDistance;
+		SetActorLocation(NewLocation);
 	}
 }
 
