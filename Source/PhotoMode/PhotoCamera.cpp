@@ -18,8 +18,7 @@ APhotoCamera::APhotoCamera()
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
-
+	
 	bUseControllerRotationPitch = true;
 	bUseControllerRotationYaw = true;
 
@@ -82,6 +81,9 @@ void APhotoCamera::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 		//Moving
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &APhotoCamera::Move);
 
+		//Moving Up
+		EnhancedInputComponent->BindAction(MoveUpAction, ETriggerEvent::Triggered, this, &APhotoCamera::MoveUp);
+
 		//Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &APhotoCamera::Look);
 
@@ -111,17 +113,36 @@ void APhotoCamera::Move(const FInputActionValue& Value)
 	if (Controller != nullptr)
 	{
 		// find out which way is forward
-		const FRotator Rotation = Controller->GetControlRotation();
+		FRotator Rotation = Controller->GetControlRotation();
 
 		// get forward vector
-		const FVector ForwardDirection = FRotationMatrix(Rotation).GetUnitAxis(EAxis::X);
-	
+		FVector ForwardDirection = FRotationMatrix(Rotation).GetUnitAxis(EAxis::X);
+		
 		// get right vector 
-		const FVector RightDirection = FRotationMatrix(Rotation).GetUnitAxis(EAxis::Y);
+		FVector RightDirection = FRotationMatrix(Rotation).GetUnitAxis(EAxis::Y);
 
+		// ensure movement is only on XY axis
+		ForwardDirection.Z = 0.f;
+		RightDirection.Z = 0.f;
+		
 		// add movement 
 		AddMovementInput(ForwardDirection, MovementVector.Y);
 		AddMovementInput(RightDirection, MovementVector.X);
+	}
+}
+
+void APhotoCamera::MoveUp(const FInputActionValue& Value)
+{
+	// input is a float representing the movement amount
+	float MovementAmount = Value.Get<float>();
+
+	if (Controller != nullptr)
+	{
+		// create an up direction vector in world space
+		FVector UpDirection = FVector::UpVector;
+
+		// add movement in the world Z axis
+		AddMovementInput(UpDirection, MovementAmount);
 	}
 }
 
