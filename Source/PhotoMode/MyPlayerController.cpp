@@ -58,6 +58,8 @@ void AMyPlayerController::TogglePhotoMode()
 		UnPossess();
 		Possess(PhotoModeCamera);
 		UGameplayStatics::SetGamePaused(this, true);
+		SetInputMode(FInputModeGameAndUI());
+		SetShowMouseCursor(true);
 	}
 	else
 	{
@@ -66,5 +68,7 @@ void AMyPlayerController::TogglePhotoMode()
 		Possess(PlayerCharacter);
 		PhotoModeCamera->Destroy();
 		UGameplayStatics::SetGamePaused(this, false);
+		SetInputMode(FInputModeGameOnly());
+		SetShowMouseCursor(false);
 	}
 }

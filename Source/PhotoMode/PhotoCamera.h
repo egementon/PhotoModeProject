@@ -81,7 +81,7 @@ public:
 	UPhotoModeMenuWidget* PhotoModeMenuWidgetInstance;
 
 	// Render Target Gamma
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variable")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Adjustable")
 	float PhotoGamma;
 
 	void Destroyed() override;
