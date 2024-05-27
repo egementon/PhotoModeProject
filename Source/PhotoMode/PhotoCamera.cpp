@@ -128,6 +128,8 @@ void APhotoCamera::Capture()
 {
 	if (Controller != nullptr)
 	{
+		SceneCaptureComponent->FOVAngle = Camera->FieldOfView;
+		
 		UTextureRenderTarget2D* RenderTarget = UKismetRenderingLibrary::CreateRenderTarget2D(this,1920,1080, RTF_RGBA8);
 		RenderTarget->TargetGamma = PhotoGamma;
 		SceneCaptureComponent->TextureTarget = RenderTarget;
