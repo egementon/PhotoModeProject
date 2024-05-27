@@ -85,4 +85,7 @@ public:
 	float PhotoGamma;
 
 	void Destroyed() override;
+
+	UPROPERTY(BlueprintReadOnly)
+	APawn* PlayerCharacter;
 };

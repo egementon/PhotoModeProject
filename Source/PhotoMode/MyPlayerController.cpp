@@ -5,6 +5,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "Kismet/GameplayStatics.h"
+#include "PhotoCamera.h"
 
 AMyPlayerController::AMyPlayerController()
 {
@@ -54,19 +55,25 @@ void AMyPlayerController::TogglePhotoMode()
 		const FVector Location = CameraManager->GetTransform().GetLocation();
 		const FRotator Rotation = CameraManager->GetTransform().GetRotation().Rotator();
 		FActorSpawnParameters SpawnInfo;
-		PhotoModeCamera = Cast<APawn>(GetWorld()->SpawnActor<AActor>(ActorToSpawn, Location, Rotation));
-		UnPossess();
-		Possess(PhotoModeCamera);
-		UGameplayStatics::SetGamePaused(this, true);
-		SetInputMode(FInputModeGameAndUI());
-		SetShowMouseCursor(true);
+
+		if (AActor* SpawnedCamera = GetWorld()->SpawnActor<AActor>(ActorToSpawn, Location, Rotation))
+		{
+			Cast<APhotoCamera>(SpawnedCamera)->PlayerCharacter = PlayerCharacter;
+			
+			PhotoCameraPawn = Cast<APawn>(SpawnedCamera);
+			UnPossess();
+			Possess(PhotoCameraPawn);
+			UGameplayStatics::SetGamePaused(this, true);
+			SetInputMode(FInputModeGameAndUI());
+			SetShowMouseCursor(true);
+		}
 	}
 	else
 	{
 		// Logic to disable photo mode
 		UnPossess();
 		Possess(PlayerCharacter);
-		PhotoModeCamera->Destroy();
+		PhotoCameraPawn->Destroy();
 		UGameplayStatics::SetGamePaused(this, false);
 		SetInputMode(FInputModeGameOnly());
 		SetShowMouseCursor(false);

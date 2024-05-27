@@ -40,7 +40,7 @@ public:
 	TSubclassOf<AActor> ActorToSpawn;
 
 	UPROPERTY()
-	APawn* PhotoModeCamera;
+	APawn* PhotoCameraPawn;
 
 	UPROPERTY()
 	APawn* PlayerCharacter;
