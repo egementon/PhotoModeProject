@@ -81,9 +81,6 @@ void APhotoCamera::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 		//Moving
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &APhotoCamera::Move);
 
-		//Moving Up
-		EnhancedInputComponent->BindAction(MoveUpAction, ETriggerEvent::Triggered, this, &APhotoCamera::MoveUp);
-
 		//Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &APhotoCamera::Look);
 
@@ -107,13 +104,13 @@ void APhotoCamera::LimitMaxDistance()
 
 void APhotoCamera::Move(const FInputActionValue& Value)
 {
-	// input is a Vector2D
-	FVector2D MovementVector = Value.Get<FVector2D>();
+	// input is a Vector
+	const FVector MovementVector = Value.Get<FVector>();
 
 	if (Controller != nullptr)
 	{
 		// find out which way is forward
-		FRotator Rotation = Controller->GetControlRotation();
+		const FRotator Rotation = Controller->GetControlRotation();
 
 		// get forward vector
 		FVector ForwardDirection = FRotationMatrix(Rotation).GetUnitAxis(EAxis::X);
@@ -125,24 +122,13 @@ void APhotoCamera::Move(const FInputActionValue& Value)
 		ForwardDirection.Z = 0.f;
 		RightDirection.Z = 0.f;
 		
+		// create an up direction vector in world space
+		const FVector UpVector = FVector::UpVector;
+		
 		// add movement 
 		AddMovementInput(ForwardDirection, MovementVector.Y);
 		AddMovementInput(RightDirection, MovementVector.X);
-	}
-}
-
-void APhotoCamera::MoveUp(const FInputActionValue& Value)
-{
-	// input is a float representing the movement amount
-	float MovementAmount = Value.Get<float>();
-
-	if (Controller != nullptr)
-	{
-		// create an up direction vector in world space
-		FVector UpDirection = FVector::UpVector;
-
-		// add movement in the world Z axis
-		AddMovementInput(UpDirection, MovementAmount);
+		AddMovementInput(UpVector, MovementVector.Z);
 	}
 }
 
