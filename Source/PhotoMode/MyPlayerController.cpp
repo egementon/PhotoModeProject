@@ -67,6 +67,9 @@ void AMyPlayerController::TogglePhotoMode()
 			SetInputMode(FInputModeGameAndUI());
 			SetShowMouseCursor(true);
 		}
+		
+		// save player transform to set it back later
+		PlayerTransform = PlayerCharacter->GetActorTransform();
 	}
 	else
 	{
@@ -77,5 +80,6 @@ void AMyPlayerController::TogglePhotoMode()
 		UGameplayStatics::SetGamePaused(this, false);
 		SetInputMode(FInputModeGameOnly());
 		SetShowMouseCursor(false);
+		PlayerCharacter->SetActorTransform(PlayerTransform);
 	}
 }

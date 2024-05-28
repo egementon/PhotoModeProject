@@ -44,4 +44,7 @@ public:
 
 	UPROPERTY()
 	APawn* PlayerCharacter;
+
+	UPROPERTY()
+	FTransform PlayerTransform;
 };
