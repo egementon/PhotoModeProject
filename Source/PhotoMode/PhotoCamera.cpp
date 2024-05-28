@@ -139,9 +139,24 @@ void APhotoCamera::Look(const FInputActionValue& Value)
 
 	if (Controller != nullptr)
 	{
+		float X = LookAxisVector.X;
+		float Y = LookAxisVector.Y;
+
+		//Roll angle
+		FRotator ActorRotation = GetActorRotation().GetNormalized();
+		float Theta = FMath::DegreesToRadians(ActorRotation.Roll);
+		
+		// Calculate cos and sin of the angle Theta
+		float CosTheta = FMath::Cos(Theta);
+		float SinTheta = FMath::Sin(Theta);
+		
+		// Compute the new coordinates
+		float NewX = X * CosTheta - Y * SinTheta;
+		float NewY = X * SinTheta + Y * CosTheta;
+		
 		// add yaw and pitch input to controller
-		AddControllerYawInput(LookAxisVector.X);
-		AddControllerPitchInput(LookAxisVector.Y);
+		AddControllerYawInput(NewX);
+		AddControllerPitchInput(NewY);
 	}
 }
 
