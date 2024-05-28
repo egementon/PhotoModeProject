@@ -92,7 +92,7 @@ void APhotoCamera::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 void APhotoCamera::LimitMaxDistance()
 {
 	const FVector CameraLoc = GetActorLocation();
-	const FVector PlayerLoc = PlayerCharacter->GetActorLocation();
+	const FVector PlayerLoc = PlayerPawn->GetActorLocation();
 	const float Distance = FVector::Dist(CameraLoc, PlayerLoc);
 	if (Distance > MaxDistance)
 	{

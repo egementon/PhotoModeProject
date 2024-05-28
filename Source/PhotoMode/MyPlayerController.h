@@ -15,7 +15,7 @@ UCLASS()
 class PHOTOMODE_API AMyPlayerController : public APlayerController
 {
 	GENERATED_BODY()
-
+	
 public:
 	AMyPlayerController();
 	
@@ -43,8 +43,11 @@ public:
 	APawn* PhotoCameraPawn;
 
 	UPROPERTY()
-	APawn* PlayerCharacter;
+	APawn* PlayerPawn;
 
 	UPROPERTY()
-	FTransform PlayerTransform;
+	ACharacter* PlayerCharacter;
+
+	UPROPERTY()
+	FTransform PlayerMeshTransform;
 };

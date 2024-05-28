@@ -6,6 +6,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "Kismet/GameplayStatics.h"
 #include "PhotoCamera.h"
+#include "GameFramework/Character.h"
 
 AMyPlayerController::AMyPlayerController()
 {
@@ -37,7 +38,8 @@ void AMyPlayerController::BeginPlay()
 	}
 	//////////////////////////////////////////////////////////////////////////
 
-	PlayerCharacter = UGameplayStatics::GetPlayerPawn(GetWorld(),0);
+	PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(),0);
+	PlayerCharacter = Cast<ACharacter>(PlayerPawn);
 	
 	// needed to fix TXAA/MotionBlur glitches
 	GetWorld()->bIsCameraMoveableWhenPaused = true;
@@ -58,28 +60,30 @@ void AMyPlayerController::TogglePhotoMode()
 
 		if (AActor* SpawnedCamera = GetWorld()->SpawnActor<AActor>(ActorToSpawn, Location, Rotation))
 		{
-			Cast<APhotoCamera>(SpawnedCamera)->PlayerCharacter = PlayerCharacter;
+			APhotoCamera* PhotoCamera = Cast<APhotoCamera>(SpawnedCamera);
+			PhotoCamera->PlayerPawn = PlayerPawn;
+			PhotoCamera->PlayerCharacter = PlayerCharacter;
+			PhotoCamera->MeshInitialRelativeTransform = PlayerCharacter->GetMesh()->GetRelativeTransform();
 			
-			PhotoCameraPawn = Cast<APawn>(SpawnedCamera);
 			UnPossess();
+			PhotoCameraPawn = Cast<APawn>(SpawnedCamera);
 			Possess(PhotoCameraPawn);
 			UGameplayStatics::SetGamePaused(this, true);
 			SetInputMode(FInputModeGameAndUI());
 			SetShowMouseCursor(true);
 		}
-		
 		// save player transform to set it back later
-		PlayerTransform = PlayerCharacter->GetActorTransform();
+		PlayerMeshTransform = PlayerCharacter->GetMesh()->GetComponentTransform();
 	}
 	else
 	{
 		// Logic to disable photo mode
 		UnPossess();
-		Possess(PlayerCharacter);
+		Possess(PlayerPawn);
 		PhotoCameraPawn->Destroy();
 		UGameplayStatics::SetGamePaused(this, false);
 		SetInputMode(FInputModeGameOnly());
 		SetShowMouseCursor(false);
-		PlayerCharacter->SetActorTransform(PlayerTransform);
+		PlayerCharacter->GetMesh()->SetWorldTransform(PlayerMeshTransform);
 	}
 }

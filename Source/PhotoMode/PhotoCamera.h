@@ -96,5 +96,11 @@ public:
 	void Destroyed() override;
 
 	UPROPERTY(BlueprintReadOnly)
-	APawn* PlayerCharacter;
+	APawn* PlayerPawn;
+
+	UPROPERTY(BlueprintReadOnly)
+	ACharacter* PlayerCharacter;
+
+	UPROPERTY(BlueprintReadOnly)
+	FTransform MeshInitialRelativeTransform;
 };
