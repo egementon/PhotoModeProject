@@ -32,6 +32,7 @@ APhotoCamera::APhotoCamera()
 	SceneCaptureComponent->bCaptureEveryFrame = false;
 	SceneCaptureComponent->bCaptureOnMovement = false;
 	SceneCaptureComponent->CaptureSource = SCS_FinalColorLDR;
+	SceneCaptureComponent->bAlwaysPersistRenderingState = true;
 	
 	// Important for moving camera when game paused!
 	SetTickableWhenPaused(true);
