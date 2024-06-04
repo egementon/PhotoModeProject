@@ -33,6 +33,10 @@ APhotoCamera::APhotoCamera()
 	SceneCaptureComponent->bCaptureOnMovement = false;
 	SceneCaptureComponent->CaptureSource = SCS_FinalColorLDR;
 	SceneCaptureComponent->bAlwaysPersistRenderingState = true;
+
+	LightAttachLocation = CreateDefaultSubobject<USceneComponent>(TEXT("LightAttachLocation"));
+	LightAttachLocation->SetupAttachment(Camera);
+	LightAttachLocation->SetRelativeLocation(FVector(100.0f, 0.0f, 0.0f));
 	
 	// Important for moving camera when game paused!
 	SetTickableWhenPaused(true);
@@ -101,6 +105,11 @@ void APhotoCamera::LimitMaxDistance()
 		const FVector NewLocation = PlayerLoc + Direction * MaxDistance;
 		SetActorLocation(NewLocation);
 	}
+}
+
+FVector APhotoCamera::GetLightAttachLocation() const
+{
+	return LightAttachLocation->GetComponentLocation();
 }
 
 void APhotoCamera::Move(const FInputActionValue& Value)

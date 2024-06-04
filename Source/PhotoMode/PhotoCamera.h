@@ -42,8 +42,11 @@ public:
 
 	// Limit movement
 	void LimitMaxDistance();
-	
 
+	// Get LightAttachLocation
+	UFUNCTION(BlueprintCallable)
+	FVector GetLightAttachLocation() const;
+	
 	/** MappingContext */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputMappingContext* DefaultMappingContext;
@@ -103,4 +106,11 @@ public:
 
 	UPROPERTY(BlueprintReadOnly)
 	FTransform MeshInitialRelativeTransform;
+
+	// Lights
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	AActor* Light1;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	USceneComponent* LightAttachLocation;
 };
