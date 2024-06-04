@@ -37,6 +37,8 @@ APhotoCamera::APhotoCamera()
 	LightAttachLocation = CreateDefaultSubobject<USceneComponent>(TEXT("LightAttachLocation"));
 	LightAttachLocation->SetupAttachment(Camera);
 	LightAttachLocation->SetRelativeLocation(FVector(100.0f, 0.0f, 0.0f));
+	UseLightMovement = false;
+	LightMoveSpeed = 1.f;
 	
 	// Important for moving camera when game paused!
 	SetTickableWhenPaused(true);
@@ -134,11 +136,20 @@ void APhotoCamera::Move(const FInputActionValue& Value)
 		
 		// create an up direction vector in world space
 		const FVector UpVector = FVector::UpVector;
-		
-		// add movement 
-		AddMovementInput(ForwardDirection, MovementVector.Y);
-		AddMovementInput(RightDirection, MovementVector.X);
-		AddMovementInput(UpVector, MovementVector.Z);
+
+		if (!UseLightMovement)
+		{
+			// add movement 
+			AddMovementInput(ForwardDirection, MovementVector.Y);
+			AddMovementInput(RightDirection, MovementVector.X);
+			AddMovementInput(UpVector, MovementVector.Z);
+		}
+		else
+		{
+			Light1->AddActorWorldOffset(ForwardDirection * MovementVector.Y * LightMoveSpeed, true);
+			Light1->AddActorWorldOffset(RightDirection * MovementVector.X * LightMoveSpeed, true);
+			Light1->AddActorWorldOffset(UpVector * MovementVector.Z * LightMoveSpeed, true);
+		}
 	}
 }
 

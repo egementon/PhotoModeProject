@@ -113,4 +113,10 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	USceneComponent* LightAttachLocation;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool UseLightMovement;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float LightMoveSpeed;
 };
