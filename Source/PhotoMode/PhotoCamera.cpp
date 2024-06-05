@@ -139,16 +139,19 @@ void APhotoCamera::Move(const FInputActionValue& Value)
 
 		if (!UseLightMovement)
 		{
-			// add movement 
+			// add camera movement 
 			AddMovementInput(ForwardDirection, MovementVector.Y);
 			AddMovementInput(RightDirection, MovementVector.X);
 			AddMovementInput(UpVector, MovementVector.Z);
 		}
 		else
 		{
-			Light1->AddActorWorldOffset(ForwardDirection * MovementVector.Y * LightMoveSpeed, true);
-			Light1->AddActorWorldOffset(RightDirection * MovementVector.X * LightMoveSpeed, true);
-			Light1->AddActorWorldOffset(UpVector * MovementVector.Z * LightMoveSpeed, true);
+			if (SelectedLight)
+			{
+				SelectedLight->AddActorWorldOffset(ForwardDirection * MovementVector.Y * LightMoveSpeed, true);
+				SelectedLight->AddActorWorldOffset(RightDirection * MovementVector.X * LightMoveSpeed, true);
+				SelectedLight->AddActorWorldOffset(UpVector * MovementVector.Z * LightMoveSpeed, true);
+			}
 		}
 	}
 }

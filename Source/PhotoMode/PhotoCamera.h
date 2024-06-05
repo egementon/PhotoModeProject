@@ -109,7 +109,16 @@ public:
 
 	// Lights
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	AActor* SelectedLight;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	AActor* Light1;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	AActor* Light2;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	AActor* Light3;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	USceneComponent* LightAttachLocation;
