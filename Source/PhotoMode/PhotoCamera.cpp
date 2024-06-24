@@ -46,6 +46,7 @@ APhotoCamera::APhotoCamera()
 	FloatingPawnMovement->SetTickableWhenPaused(true);
 
 	PhotoGamma = 2.f;
+	bIsUIHidden = false;
 }
 
 // Called when the game starts or when spawned
@@ -92,7 +93,10 @@ void APhotoCamera::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &APhotoCamera::Look);
 
 		//Capturing
-		EnhancedInputComponent->BindAction(CaptureAction, ETriggerEvent::Triggered, this, &APhotoCamera::Capture);
+		EnhancedInputComponent->BindAction(CaptureAction, ETriggerEvent::Started, this, &APhotoCamera::Capture);
+
+		//Hiding UI
+		EnhancedInputComponent->BindAction(HideUIAction, ETriggerEvent::Started, this, &APhotoCamera::HideUI);
 	}
 }
 
@@ -208,6 +212,20 @@ void APhotoCamera::Capture()
 			UKismetSystemLibrary::GetProjectSavedDirectory(),
 			TimeString += TEXT(".png")
 			);
+	}
+}
+
+void APhotoCamera::HideUI()
+{
+	bIsUIHidden = !bIsUIHidden;
+
+	if (bIsUIHidden)
+	{
+		PhotoModeMenuWidgetInstance->SetVisibility(ESlateVisibility::Collapsed);
+	}
+	else
+	{
+		PhotoModeMenuWidgetInstance->SetVisibility(ESlateVisibility::Visible);
 	}
 }
 

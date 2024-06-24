@@ -33,6 +33,9 @@ protected:
 	/** Called for capture input */
 	void Capture();
 
+	/** Called for HideUI input */
+	void HideUI();
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -62,6 +65,10 @@ public:
 	/** Capture Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* CaptureAction;
+
+	/** Capture Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* HideUIAction;
 	
 	
 	// Camera component
@@ -75,7 +82,7 @@ public:
 	// Scene Capture component
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
 	USceneCaptureComponent2D* SceneCaptureComponent;
-
+	
 	
 	// Flash Effect Widget
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widget")
@@ -84,6 +91,9 @@ public:
 	// Photo Mode Menu Widget
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widget")
 	TSubclassOf<UPhotoModeMenuWidget> PhotoModeMenuWidgetClass;
+
+	UPROPERTY()
+	bool bIsUIHidden;
 
 	UPROPERTY()
 	UPhotoModeMenuWidget* PhotoModeMenuWidgetInstance;
