@@ -138,4 +138,11 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float LightMoveSpeed;
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "MyEvents")
+	void HideLightBillboard(bool visibility);
+
+	void DestroyAllLights();
+
+	
 };

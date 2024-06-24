@@ -197,7 +197,9 @@ void APhotoCamera::Capture()
 		UTextureRenderTarget2D* RenderTarget = UKismetRenderingLibrary::CreateRenderTarget2D(this,1920,1080, RTF_RGBA8);
 		RenderTarget->TargetGamma = PhotoGamma;
 		SceneCaptureComponent->TextureTarget = RenderTarget;
+		HideLightBillboard(false);
 		SceneCaptureComponent->CaptureScene();
+		if (!bIsUIHidden) HideLightBillboard(true);
 
 		// Play Flash Effect
 		if (UUserWidget* FlashWidgetInstance = CreateWidget<UUserWidget>(GetWorld(), FlashWidgetClass))
@@ -222,10 +224,12 @@ void APhotoCamera::HideUI()
 	if (bIsUIHidden)
 	{
 		PhotoModeMenuWidgetInstance->SetVisibility(ESlateVisibility::Collapsed);
+		HideLightBillboard(false);
 	}
 	else
 	{
 		PhotoModeMenuWidgetInstance->SetVisibility(ESlateVisibility::Visible);
+		HideLightBillboard(true);
 	}
 }
 
@@ -236,4 +240,13 @@ void APhotoCamera::Destroyed()
 	{
 		PhotoModeMenuWidgetInstance->RemoveFromParent();
 	}
+	DestroyAllLights();
+}
+
+void APhotoCamera::DestroyAllLights()
+{
+	if (IsValid(Light1)) Light1->Destroy();
+	if (IsValid(Light2)) Light2->Destroy();
+	if (IsValid(Light3)) Light3->Destroy();
+	SelectedLight = nullptr;
 }
