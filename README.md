@@ -61,3 +61,6 @@ Here are a couple of my photos showcasing the capabilities of the Photo Mode Pro
 
 # Notes:
 - The capture feature is still being refined; occasionally, you might see glitches and artifacts in the photos. Additionally, the lighting of the captured photo does not match perfectly with real lighting. I could use help if you have an idea why SceneCaptureComponent does this.
+
+# Youtube Video:
+[![Unreal Engine 5 Screenshot 2024 06 25 - 12 54 38 65](https://img.youtube.com/vi/paFQNt5nKu8/maxresdefault.jpg)](https://www.youtube.com/watch?v=paFQNt5nKu8)
