@@ -1,9 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "PhotoModeMenuWidget.h"
+#include "PM_MenuWidget.h"
 
-void UPhotoModeMenuWidget::SetPhotoCamera(APhotoCamera* Camera)
+void UPM_MenuWidget::SetPhotoCamera(APhotoCamera* Camera)
 {
 	PhotoCamera = Camera;
 }

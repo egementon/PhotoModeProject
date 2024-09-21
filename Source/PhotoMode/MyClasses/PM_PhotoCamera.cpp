@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "PhotoCamera.h"
+#include "PM_PhotoCamera.h"
 
 #include "EnhancedInputComponent.h"
 #include "Components/InputComponent.h"
@@ -64,7 +64,7 @@ void APhotoCamera::BeginPlay()
 	}
 
 	// Create Widget of Photo Mode Menu
-	PhotoModeMenuWidgetInstance = CreateWidget<UPhotoModeMenuWidget>(GetWorld(), PhotoModeMenuWidgetClass);
+	PhotoModeMenuWidgetInstance = CreateWidget<UPM_MenuWidget>(GetWorld(), PhotoModeMenuWidgetClass);
 	if (PhotoModeMenuWidgetInstance)
 	{
 		PhotoModeMenuWidgetInstance->SetPhotoCamera(this);

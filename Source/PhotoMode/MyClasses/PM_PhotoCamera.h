@@ -4,12 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "InputActionValue.h"
-#include "PhotoModeMenuWidget.h"
+#include "PM_MenuWidget.h"
 #include "GameFramework/Pawn.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/FloatingPawnMovement.h"
 #include "Blueprint/UserWidget.h"
-#include "PhotoCamera.generated.h"
+#include "PM_PhotoCamera.generated.h"
 
 UCLASS()
 class PHOTOMODE_API APhotoCamera : public APawn
@@ -90,13 +90,13 @@ public:
 
 	// Photo Mode Menu Widget
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widget")
-	TSubclassOf<UPhotoModeMenuWidget> PhotoModeMenuWidgetClass;
+	TSubclassOf<UPM_MenuWidget> PhotoModeMenuWidgetClass;
 
 	UPROPERTY()
 	bool bIsUIHidden;
 
 	UPROPERTY()
-	UPhotoModeMenuWidget* PhotoModeMenuWidgetInstance;
+	UPM_MenuWidget* PhotoModeMenuWidgetInstance;
 
 	// Render Target Gamma
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Adjustable")

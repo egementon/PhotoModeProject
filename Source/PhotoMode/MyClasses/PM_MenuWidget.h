@@ -4,14 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "PhotoModeMenuWidget.generated.h"
+#include "PM_MenuWidget.generated.h"
 
 class APhotoCamera;
 /**
  * 
  */
 UCLASS()
-class PHOTOMODE_API UPhotoModeMenuWidget : public UUserWidget
+class PHOTOMODE_API UPM_MenuWidget : public UUserWidget
 {
 	GENERATED_BODY()
 

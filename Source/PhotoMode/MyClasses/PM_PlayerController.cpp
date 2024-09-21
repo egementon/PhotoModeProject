@@ -1,22 +1,23 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "MyPlayerController.h"
+#include "PM_PlayerController.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "Kismet/GameplayStatics.h"
-#include "PhotoCamera.h"
+#include "PM_PhotoCamera.h"
 #include "GameFramework/Character.h"
 
-AMyPlayerController::AMyPlayerController()
+APM_PlayerController::APM_PlayerController()
 {
 	bIsPhotoModeActive = false;
+	
 	// needed to move pawn and camera
 	bShouldPerformFullTickWhenPaused = true;
 }
 
 
-void AMyPlayerController::BeginPlay()
+void APM_PlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 	
@@ -34,7 +35,7 @@ void AMyPlayerController::BeginPlay()
 	// Set up action bindings
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(InputComponent))
 	{
-		EnhancedInputComponent->BindAction(PhotoModeAction, ETriggerEvent::Started, this, &AMyPlayerController::TogglePhotoMode);
+		EnhancedInputComponent->BindAction(PhotoModeAction, ETriggerEvent::Started, this, &APM_PlayerController::TogglePhotoMode);
 	}
 	//////////////////////////////////////////////////////////////////////////
 
@@ -46,7 +47,7 @@ void AMyPlayerController::BeginPlay()
 }
 
 
-void AMyPlayerController::TogglePhotoMode()
+void APM_PlayerController::TogglePhotoMode()
 {
 	bIsPhotoModeActive = !bIsPhotoModeActive;
 
@@ -56,7 +57,6 @@ void AMyPlayerController::TogglePhotoMode()
 		const APlayerCameraManager* CameraManager = UGameplayStatics::GetPlayerCameraManager(this, 0);
 		const FVector Location = CameraManager->GetTransform().GetLocation();
 		const FRotator Rotation = CameraManager->GetTransform().GetRotation().Rotator();
-		FActorSpawnParameters SpawnInfo;
 
 		if (AActor* SpawnedCamera = GetWorld()->SpawnActor<AActor>(ActorToSpawn, Location, Rotation))
 		{
@@ -80,7 +80,10 @@ void AMyPlayerController::TogglePhotoMode()
 		// Logic to disable photo mode
 		UnPossess();
 		Possess(PlayerPawn);
-		PhotoCameraPawn->Destroy();
+		if (PhotoCameraPawn)
+		{
+			PhotoCameraPawn->Destroy();
+		}
 		UGameplayStatics::SetGamePaused(this, false);
 		SetInputMode(FInputModeGameOnly());
 		SetShowMouseCursor(false);

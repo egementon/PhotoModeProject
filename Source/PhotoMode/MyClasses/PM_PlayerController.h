@@ -6,18 +6,18 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputMappingContext.h"
 #include "GameFramework/PlayerController.h"
-#include "MyPlayerController.generated.h"
+#include "PM_PlayerController.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class PHOTOMODE_API AMyPlayerController : public APlayerController
+class PHOTOMODE_API APM_PlayerController : public APlayerController
 {
 	GENERATED_BODY()
 	
 public:
-	AMyPlayerController();
+	APM_PlayerController();
 	
 protected:
 	// Called when the game starts or when spawned
