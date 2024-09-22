@@ -18,7 +18,7 @@ class PHOTOMODE_API UPM_MenuWidget : public UUserWidget
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	APhotoCamera* PhotoCamera;
 
 	UFUNCTION()

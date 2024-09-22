@@ -27,7 +27,7 @@ void UPM_SliderParent::NativeConstruct()
 
 void UPM_SliderParent::OnSliderValueChanged(float NewValue)
 {
-	UKismetSystemLibrary::PrintString(this, FString::Printf(TEXT("Value Changed: %f"), NewValue));
+	// Logic will be implemented in subclasses
 }
 
 void UPM_SliderParent::ResetSlider()

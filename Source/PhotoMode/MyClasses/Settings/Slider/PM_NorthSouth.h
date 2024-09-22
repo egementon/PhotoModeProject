@@ -4,16 +4,17 @@
 
 #include "CoreMinimal.h"
 #include "PhotoMode/MyClasses/Settings/PM_SliderParent.h"
-#include "PM_Rotation.generated.h"
+#include "PM_NorthSouth.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class PHOTOMODE_API UPM_Rotation : public UPM_SliderParent
+class PHOTOMODE_API UPM_NorthSouth : public UPM_SliderParent
 {
 	GENERATED_BODY()
 
 protected:
 	virtual void OnSliderValueChanged(float NewValue) override;
+
 };

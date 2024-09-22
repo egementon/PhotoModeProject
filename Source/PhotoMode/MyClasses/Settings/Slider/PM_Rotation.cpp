@@ -8,13 +8,11 @@
 
 void UPM_Rotation::OnSliderValueChanged(const float NewValue)
 {
-	Super::OnSliderValueChanged(NewValue);
-
 	if (PhotoCamera2)
 	{
-		const float InitialYawRotation = PhotoCamera2->MeshInitialRelativeTransform.GetRotation().Rotator().Yaw;
-		const float NewYawRotation =  InitialYawRotation + NewValue;
-		const FRotator NewRotation = FRotator(0.f, NewYawRotation, 0.f);
+		const FRotator InitialRotation = PhotoCamera2->MeshInitialRelativeTransform.GetRotation().Rotator();
+		const float NewYawRotation = InitialRotation.Yaw + NewValue;
+		const FRotator NewRotation = FRotator(InitialRotation.Pitch, NewYawRotation, InitialRotation.Roll);
 		PhotoCamera2->PlayerCharacter->GetMesh()->SetRelativeRotation(NewRotation);
 	}
 }
