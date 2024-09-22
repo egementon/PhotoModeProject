@@ -20,6 +20,9 @@ public:
 	// Sets default values for this pawn's properties
 	APhotoCamera();
 
+	UCameraComponent* GetCamera();
+	USceneCaptureComponent2D* GetSceneCapture();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -69,20 +72,6 @@ public:
 	/** Capture Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* HideUIAction;
-	
-	
-	// Camera component
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
-	UCameraComponent* Camera;
-
-	// Floating pawn movement component
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Movement")
-	UFloatingPawnMovement* FloatingPawnMovement;
-
-	// Scene Capture component
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
-	USceneCaptureComponent2D* SceneCaptureComponent;
-	
 	
 	// Flash Effect Widget
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widget")
@@ -144,5 +133,17 @@ public:
 
 	void DestroyAllLights();
 
+protected:	
+	// Camera component
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
+	UCameraComponent* Camera;
+
+	// Floating pawn movement component
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Movement")
+	UFloatingPawnMovement* FloatingPawnMovement;
+
+	// Scene Capture component
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
+	USceneCaptureComponent2D* SceneCaptureComponent;
 	
 };

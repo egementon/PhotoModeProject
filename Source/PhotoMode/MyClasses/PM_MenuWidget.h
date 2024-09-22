@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Settings/Slider/PM_FilterIntensity.h"
 #include "PM_MenuWidget.generated.h"
 
 class UPM_SettingParent;
@@ -25,6 +26,26 @@ public:
 
 	void SetPhotoCameraForSettingWidgets(APhotoCamera* Camera);
 
+	UPM_SettingParent* GetRotation() const;
+	UPM_SettingParent* GetUpDown() const;
+	UPM_SettingParent* GetNorthSouth() const;
+	UPM_SettingParent* GetWestEast() const;
+	UPM_SettingParent* GetHidePlayer() const;
+	UPM_SettingParent* GetFOV() const;
+	UPM_SettingParent* GetCameraRoll() const;
+	UPM_SettingParent* GetFilters() const;
+	UPM_FilterIntensity* GetFilterIntensity() const;
+	UPM_SettingParent* GetShowGrid() const;
+	UPM_SettingParent* GetSelectedLight() const;
+	UPM_SettingParent* GetEnabled() const;
+	UPM_SettingParent* GetAttachToCamera() const;
+	UPM_SettingParent* GetMovement() const;
+	UPM_SettingParent* GetLightIntensity() const;
+	UPM_SettingParent* GetHue() const;
+	UPM_SettingParent* GetSaturation() const;
+
+
+protected:
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	TObjectPtr<UPM_SettingParent> Rotation;
 

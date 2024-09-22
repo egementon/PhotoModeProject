@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Camera/CameraComponent.h"
 #include "PhotoMode/MyClasses/Settings/PM_DropdownParent.h"
 #include "PM_Filters.generated.h"
 
@@ -17,7 +18,7 @@ class PHOTOMODE_API UPM_Filters : public UPM_DropdownParent
 protected:
 
 	virtual void OnDropdownSelectionChanged(FString NewSelectedOption, int32 NewSelectedIndex) override;
-	
+
 	template<typename T>
 	void SetPostProcessSettings(UMaterialInstanceDynamic* PostProcessMaterial, T* TargetComponent)
 	{

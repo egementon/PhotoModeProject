@@ -21,8 +21,7 @@ protected:
 
 	UFUNCTION()
 	virtual void OnSliderValueChanged(float NewValue);
-
-	void ResetSlider();
+	virtual void ResetSlider();
 
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	TObjectPtr<USlider> Slider;

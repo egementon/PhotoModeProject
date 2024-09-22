@@ -29,7 +29,7 @@ void UPM_SettingParent::NativeConstruct()
 	RootSizeBox->AddChild(HorizontalBox);
 
 	SettingNameText = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass(), TEXT("Text_Name"));
-	//SettingNameText->SetText(FText::FromString("Setting Name"));
+	//SettingNameText->SetText(FText::FromString("Setting Name")); TODO:Remove?
 	HorizontalBox->AddChildToHorizontalBox(SettingNameText);
 
 	SizeBox = WidgetTree->ConstructWidget<USizeBox>(USizeBox::StaticClass(), TEXT("SizeBox"));
@@ -39,4 +39,9 @@ void UPM_SettingParent::NativeConstruct()
 	SizeBox->AddChild(InnerSizeBox);
 	
 	
+}
+
+void UPM_SettingParent::SetMenuWidget(UPM_MenuWidget* NewMenuWidget)
+{
+	MenuWidget = NewMenuWidget;
 }

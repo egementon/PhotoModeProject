@@ -49,6 +49,16 @@ APhotoCamera::APhotoCamera()
 	bIsUIHidden = false;
 }
 
+UCameraComponent* APhotoCamera::GetCamera()
+{
+	return Camera;
+}
+
+USceneCaptureComponent2D* APhotoCamera::GetSceneCapture()
+{
+	return SceneCaptureComponent;
+}
+
 // Called when the game starts or when spawned
 void APhotoCamera::BeginPlay()
 {

@@ -6,6 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include "PM_SettingParent.generated.h"
 
+class UPM_MenuWidget;
 class UTextBlock;
 class UHorizontalBox;
 class USizeBox;
@@ -22,6 +23,8 @@ public:
 	
 	virtual void NativePreConstruct() override;
 	virtual void NativeConstruct() override;
+
+	void SetMenuWidget(UPM_MenuWidget* NewMenuWidget);
 	
 	UPROPERTY(BlueprintReadOnly)
 	APhotoCamera* PhotoCamera2;
@@ -45,6 +48,10 @@ protected:
 
 	UPROPERTY(meta = (BindWidget))
 	USizeBox* InnerSizeBox;
+
+	// Menu Widget Reference
+	UPROPERTY()
+	TObjectPtr<UPM_MenuWidget> MenuWidget;
 
 	
 };
