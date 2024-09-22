@@ -1,0 +1,52 @@
+﻿// Fill out your copyright notice in the Description page of Project Settings.
+
+
+#include "PM_DropdownParent.h"
+
+#include "Components/ComboBoxString.h"
+
+void UPM_DropdownParent::NativePreConstruct()
+{
+	Super::NativePreConstruct();
+
+	if (Dropdown)
+	{
+		for (auto Option : Options)
+		{
+			Dropdown->AddOption(Option);	
+		}
+		Dropdown->SetSelectedOption(SelectedOption);
+	}
+}
+
+void UPM_DropdownParent::NativeConstruct()
+{
+	Super::NativeConstruct();
+
+	if (Dropdown)
+	{
+		Dropdown->OnSelectionChanged.AddDynamic(this, &UPM_DropdownParent::SelectionChangedCallback);
+	}
+}
+
+void UPM_DropdownParent::SelectionChangedCallback(FString SelectedItem, ESelectInfo::Type SelectionType)
+{
+	OnDropdownSelectionChanged(SelectedItem, Dropdown->GetSelectedIndex());
+}
+
+void UPM_DropdownParent::OnDropdownSelectionChanged(FString NewSelectedOption, int32 NewSelectedIndex)
+{
+	
+}
+
+void UPM_DropdownParent::SetSelection(int32 Index)
+{
+	Dropdown->SetSelectedIndex(Index);
+}
+
+void UPM_DropdownParent::ResetSelection()
+{
+	Dropdown->SetSelectedIndex(0);
+}
+
+
