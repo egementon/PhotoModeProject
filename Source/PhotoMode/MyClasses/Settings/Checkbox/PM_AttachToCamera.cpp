@@ -8,7 +8,7 @@
 
 void UPM_AttachToCamera::OnCheckStateChanged(bool bIsChecked)
 {
-	if (!PhotoCamera2) return;
+	if (!PhotoCamera2->SelectedLight) return;
 
 	if (bIsChecked)
 	{
