@@ -7,6 +7,12 @@
 #include "Settings/Slider/PM_FilterIntensity.h"
 #include "PM_MenuWidget.generated.h"
 
+class UPM_Saturation;
+class UPM_Hue;
+class UPM_LightIntensity;
+class UPM_Enabled;
+class UPM_AttachToCamera;
+class UPM_Movement;
 class UPM_SettingParent;
 class APhotoCamera;
 /**
@@ -37,12 +43,12 @@ public:
 	UPM_FilterIntensity* GetFilterIntensity() const;
 	UPM_SettingParent* GetShowGrid() const;
 	UPM_SettingParent* GetSelectedLight() const;
-	UPM_SettingParent* GetEnabled() const;
-	UPM_SettingParent* GetAttachToCamera() const;
-	UPM_SettingParent* GetMovement() const;
-	UPM_SettingParent* GetLightIntensity() const;
-	UPM_SettingParent* GetHue() const;
-	UPM_SettingParent* GetSaturation() const;
+	UPM_Enabled* GetEnabled() const;
+	UPM_AttachToCamera* GetAttachToCamera() const;
+	UPM_Movement* GetMovement() const;
+	UPM_LightIntensity* GetLightIntensity() const;
+	UPM_Hue* GetHue() const;
+	UPM_Saturation* GetSaturation() const;
 
 
 protected:
@@ -80,21 +86,21 @@ protected:
 	TObjectPtr<UPM_SettingParent> SelectedLight;
 
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
-	TObjectPtr<UPM_SettingParent> Enabled;
+	TObjectPtr<UPM_Enabled> Enabled;
 
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
-	TObjectPtr<UPM_SettingParent> AttachToCamera;
+	TObjectPtr<UPM_AttachToCamera> AttachToCamera;
 
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
-	TObjectPtr<UPM_SettingParent> Movement;
+	TObjectPtr<UPM_Movement> Movement;
 
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
-	TObjectPtr<UPM_SettingParent> LightIntensity;
+	TObjectPtr<UPM_LightIntensity> LightIntensity;
 
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
-	TObjectPtr<UPM_SettingParent> Hue;
+	TObjectPtr<UPM_Hue> Hue;
 
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
-	TObjectPtr<UPM_SettingParent> Saturation;
+	TObjectPtr<UPM_Saturation> Saturation;
 
 };

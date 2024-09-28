@@ -5,7 +5,13 @@
 
 #include "Settings/PM_SettingParent.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "Settings/Checkbox/PM_AttachToCamera.h"
+#include "Settings/Checkbox/PM_Enabled.h"
+#include "Settings/Dropdown/PM_Movement.h"
 #include "Settings/Slider/PM_FilterIntensity.h"
+#include "Settings/Slider/PM_Hue.h"
+#include "Settings/Slider/PM_LightIntensity.h"
+#include "Settings/Slider/PM_Saturation.h"
 
 void UPM_MenuWidget::SetPhotoCamera(APhotoCamera* Camera)
 {
@@ -15,7 +21,6 @@ void UPM_MenuWidget::SetPhotoCamera(APhotoCamera* Camera)
 
 void UPM_MenuWidget::SetPhotoCameraForSettingWidgets(APhotoCamera* Camera)
 {
-
 	// Array to hold all UPM_SettingParent variables
 	TArray<UPM_SettingParent*> SettingParents;
 
@@ -24,17 +29,17 @@ void UPM_MenuWidget::SetPhotoCameraForSettingWidgets(APhotoCamera* Camera)
 	{
 		FProperty* Property = *PropIt;
 
-		// Check if the property is of type TObjectPtr<UPM_SettingParent> (or UPM_SettingParent)
+		// Check if the property is a subclass of UPM_SettingParent
 		FObjectProperty* ObjectProp = CastField<FObjectProperty>(Property);
-		if (ObjectProp && ObjectProp->PropertyClass == UPM_SettingParent::StaticClass())
+		if (ObjectProp && ObjectProp->PropertyClass->IsChildOf(UPM_SettingParent::StaticClass()))
 		{
-			// Get the UObject* and cast it to UPM_SettingParent*
+			// Get the UObject* and cast it to UPM_SettingParent* or its subclass
 			UObject* Obj = ObjectProp->GetObjectPropertyValue_InContainer(this);
-			UPM_SettingParent* SettingParent = Cast<UPM_SettingParent>(Obj); // Explicitly cast the UObject* to UPM_SettingParent*
+			UPM_SettingParent* SettingParent = Cast<UPM_SettingParent>(Obj); 
 
 			if (SettingParent)
 			{
-				// Add the setting parent to the array
+				// Add the setting parent or subclass to the array
 				SettingParents.Add(SettingParent);
 			}
 		}
@@ -65,9 +70,9 @@ UPM_SettingParent* UPM_MenuWidget::GetFilters() const { return Filters; }
 UPM_FilterIntensity* UPM_MenuWidget::GetFilterIntensity() const { return Cast<UPM_FilterIntensity>(FilterIntensity); }
 UPM_SettingParent* UPM_MenuWidget::GetShowGrid() const { return ShowGrid; }
 UPM_SettingParent* UPM_MenuWidget::GetSelectedLight() const { return SelectedLight; }
-UPM_SettingParent* UPM_MenuWidget::GetEnabled() const { return Enabled; }
-UPM_SettingParent* UPM_MenuWidget::GetAttachToCamera() const { return AttachToCamera; }
-UPM_SettingParent* UPM_MenuWidget::GetMovement() const { return Movement; }
-UPM_SettingParent* UPM_MenuWidget::GetLightIntensity() const { return LightIntensity; }
-UPM_SettingParent* UPM_MenuWidget::GetHue() const { return Hue; }
-UPM_SettingParent* UPM_MenuWidget::GetSaturation() const { return Saturation; }
+UPM_Enabled* UPM_MenuWidget::GetEnabled() const { return Enabled; }
+UPM_AttachToCamera* UPM_MenuWidget::GetAttachToCamera() const { return AttachToCamera; }
+UPM_Movement* UPM_MenuWidget::GetMovement() const { return Movement; }
+UPM_LightIntensity* UPM_MenuWidget::GetLightIntensity() const { return LightIntensity; }
+UPM_Hue* UPM_MenuWidget::GetHue() const { return Hue; }
+UPM_Saturation* UPM_MenuWidget::GetSaturation() const { return Saturation; }

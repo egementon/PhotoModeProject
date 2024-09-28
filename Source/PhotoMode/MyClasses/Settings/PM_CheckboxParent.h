@@ -15,6 +15,9 @@ class PHOTOMODE_API UPM_CheckboxParent : public UPM_SettingParent
 {
 	GENERATED_BODY()
 
+public:
+	void SetCheckState(bool bIsChecked);
+
 protected:
 
 	virtual void NativeConstruct() override;

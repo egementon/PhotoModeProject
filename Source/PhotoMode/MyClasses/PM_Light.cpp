@@ -26,4 +26,11 @@ APM_Light::APM_Light()
 	PointLight->SetIntensity(10000.f);
 	Billboard->SetWorldScale3D(FVector(0.5f, 0.5f, 0.5f));
 	Billboard->SetHiddenInGame(false);
+
+	// Set Billboard texture
+	static ConstructorHelpers::FObjectFinder<UTexture2D> TextureAsset(TEXT("/Engine/EditorResources/LightIcons/S_LightPointMove.S_LightPointMove"));
+	if (TextureAsset.Succeeded())
+	{
+		Billboard->SetSprite(TextureAsset.Object);
+	}
 }

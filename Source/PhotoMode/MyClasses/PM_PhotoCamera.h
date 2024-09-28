@@ -113,13 +113,13 @@ public:
 	APM_Light* SelectedLight;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	AActor* Light1;
+	APM_Light* Light1;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	AActor* Light2;
+	APM_Light* Light2;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	AActor* Light3;
+	APM_Light* Light3;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	USceneComponent* LightAttachLocation;

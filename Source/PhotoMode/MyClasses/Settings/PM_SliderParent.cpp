@@ -4,7 +4,6 @@
 #include "PM_SliderParent.h"
 
 #include "Components/Slider.h"
-#include "Kismet/KismetSystemLibrary.h"
 
 void UPM_SliderParent::NativePreConstruct()
 {
@@ -30,7 +29,17 @@ void UPM_SliderParent::OnSliderValueChanged(float NewValue)
 	// Logic will be implemented in subclasses
 }
 
+void UPM_SliderParent::SetSlider(float NewValue)
+{
+	Slider->SetValue(NewValue);
+}
+
 void UPM_SliderParent::ResetSlider()
 {
 	Slider->SetValue(DefaultValue);
+}
+
+float UPM_SliderParent::GetSliderValue()
+{
+	return Slider->GetValue();
 }

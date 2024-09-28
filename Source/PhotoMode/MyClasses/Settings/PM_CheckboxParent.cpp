@@ -6,11 +6,16 @@
 #include "Components/CheckBox.h"
 #include "Kismet/KismetSystemLibrary.h"
 
+void UPM_CheckboxParent::SetCheckState(bool bIsChecked)
+{
+	CheckBox->SetIsChecked(bIsChecked);
+}
+
 void UPM_CheckboxParent::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	CheckBox->SetIsChecked(bIsCheckedAsDefault);
+	SetCheckState(bIsCheckedAsDefault);
 
 	CheckBox->OnCheckStateChanged.AddDynamic(this, &UPM_CheckboxParent::OnCheckStateChanged);
 }

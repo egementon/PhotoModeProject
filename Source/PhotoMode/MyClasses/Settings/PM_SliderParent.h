@@ -15,13 +15,17 @@ class PHOTOMODE_API UPM_SliderParent : public UPM_SettingParent
 {
 	GENERATED_BODY()
 
+public:
+	void SetSlider(float NewValue);
+	virtual void ResetSlider();
+	float GetSliderValue();
+	
 protected:
 	virtual void NativePreConstruct() override;
 	virtual void NativeConstruct() override;
 
 	UFUNCTION()
 	virtual void OnSliderValueChanged(float NewValue);
-	virtual void ResetSlider();
 
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	TObjectPtr<USlider> Slider;

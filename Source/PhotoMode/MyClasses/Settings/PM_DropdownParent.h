@@ -15,6 +15,11 @@ class PHOTOMODE_API UPM_DropdownParent : public UPM_SettingParent
 {
 	GENERATED_BODY()
 
+public:
+	void SetSelection(int32 Index);
+	
+	void ResetSelection();
+
 protected:
 
 	virtual void NativePreConstruct() override;
@@ -24,10 +29,6 @@ protected:
 	void SelectionChangedCallback(FString SelectedItem, ESelectInfo::Type SelectionType);
 	
 	virtual void OnDropdownSelectionChanged(FString NewSelectedOption, int32 NewSelectedIndex);
-
-	void SetSelection(int32 Index);
-	
-	void ResetSelection();
 	
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	TObjectPtr<UComboBoxString> Dropdown;
@@ -37,8 +38,6 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString SelectedOption;
-
-	
 	
 	
 };

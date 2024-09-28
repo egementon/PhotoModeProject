@@ -14,7 +14,7 @@ void UPM_AttachToCamera::OnCheckStateChanged(bool bIsChecked)
 	{
 		const FAttachmentTransformRules AttachmentRules(EAttachmentRule::KeepRelative, true);
 		PhotoCamera2->SelectedLight->AttachToActor(PhotoCamera2, AttachmentRules);
-		PhotoCamera2->SelectedLight->SetActorLocation(PhotoCamera2->GetActorLocation());
+		PhotoCamera2->SelectedLight->SetActorLocation(PhotoCamera2->GetLightAttachLocation());
 	}
 	else
 	{
