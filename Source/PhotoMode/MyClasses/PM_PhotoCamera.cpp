@@ -6,6 +6,7 @@
 #include "EnhancedInputComponent.h"
 #include "Components/InputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "PM_Light.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/SceneCaptureComponent2D.h"
 #include "Kismet/KismetRenderingLibrary.h"
@@ -37,7 +38,7 @@ APhotoCamera::APhotoCamera()
 	LightAttachLocation = CreateDefaultSubobject<USceneComponent>(TEXT("LightAttachLocation"));
 	LightAttachLocation->SetupAttachment(Camera);
 	LightAttachLocation->SetRelativeLocation(FVector(100.0f, 0.0f, 0.0f));
-	UseLightMovement = false;
+	bUseLightMovement = false;
 	LightMoveSpeed = 1.f;
 	
 	// Important for moving camera when game paused!
@@ -151,7 +152,7 @@ void APhotoCamera::Move(const FInputActionValue& Value)
 		// create an up direction vector in world space
 		const FVector UpVector = FVector::UpVector;
 
-		if (!UseLightMovement)
+		if (!bUseLightMovement)
 		{
 			// add camera movement 
 			AddMovementInput(ForwardDirection, MovementVector.Y);

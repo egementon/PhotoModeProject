@@ -36,7 +36,7 @@ void UPM_DropdownParent::SelectionChangedCallback(FString SelectedItem, ESelectI
 
 void UPM_DropdownParent::OnDropdownSelectionChanged(FString NewSelectedOption, int32 NewSelectedIndex)
 {
-	
+	// Logic will be implemented in subclasses
 }
 
 void UPM_DropdownParent::SetSelection(int32 Index)

@@ -17,5 +17,5 @@ void UPM_CheckboxParent::NativeConstruct()
 
 void UPM_CheckboxParent::OnCheckStateChanged(bool bIsChecked)
 {
-	UKismetSystemLibrary::PrintString(this, TEXT("Check State Changed"));
+	// Logic will be implemented in subclasses
 }

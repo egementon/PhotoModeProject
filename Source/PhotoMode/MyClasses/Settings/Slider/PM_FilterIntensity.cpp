@@ -20,9 +20,9 @@ void UPM_FilterIntensity::ResetSlider()
 
 void UPM_FilterIntensity::SetPostProcessBlendWeights(float NewValue)
 {
-	if (PhotoCamera2)
-	{
-		PhotoCamera2->GetCamera()->PostProcessBlendWeight = NewValue;
-		PhotoCamera2->GetSceneCapture()->PostProcessBlendWeight = NewValue;
-	}
+	if (!PhotoCamera2) return;
+	
+	PhotoCamera2->GetCamera()->PostProcessBlendWeight = NewValue;
+	PhotoCamera2->GetSceneCapture()->PostProcessBlendWeight = NewValue;
+	
 }

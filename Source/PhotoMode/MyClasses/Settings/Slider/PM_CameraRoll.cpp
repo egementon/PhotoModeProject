@@ -7,13 +7,12 @@
 
 void UPM_CameraRoll::OnSliderValueChanged(float NewValue)
 {
-	if (PhotoCamera2)
-	{
-		const FRotator NewRotation = FRotator(
+	if (!PhotoCamera2) return;
+
+	const FRotator NewRotation = FRotator(
 		PhotoCamera2->GetActorRotation().Pitch,
 		PhotoCamera2->GetActorRotation().Yaw,
 		NewValue);
 	
-		PhotoCamera2->SetActorRotation(NewRotation);
-	}
+	PhotoCamera2->SetActorRotation(NewRotation);
 }

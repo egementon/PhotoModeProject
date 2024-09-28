@@ -11,6 +11,8 @@
 #include "Blueprint/UserWidget.h"
 #include "PM_PhotoCamera.generated.h"
 
+class APM_Light;
+
 UCLASS()
 class PHOTOMODE_API APhotoCamera : public APawn
 {
@@ -108,7 +110,7 @@ public:
 
 	// Lights
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	AActor* SelectedLight;
+	APM_Light* SelectedLight;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	AActor* Light1;
@@ -123,7 +125,7 @@ public:
 	USceneComponent* LightAttachLocation;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool UseLightMovement;
+	bool bUseLightMovement;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float LightMoveSpeed;

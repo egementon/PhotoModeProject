@@ -8,15 +8,15 @@
 
 void UPM_UpDown::OnSliderValueChanged(float NewValue)
 {
-	if (PhotoCamera2)
-	{
-		const FVector CurrentRelativeLocation = PhotoCamera2->PlayerCharacter->GetMesh()->GetRelativeLocation();
-		const float CurrentX = CurrentRelativeLocation.X;
-		const float CurrentY = CurrentRelativeLocation.Y;
-		
-		const FVector InitialLocation = PhotoCamera2->MeshInitialRelativeTransform.GetLocation();
-		const float NewZLocation = InitialLocation.Z + NewValue;
-		const FVector NewLocation = FVector(CurrentX, CurrentY, NewZLocation);
-		PhotoCamera2->PlayerCharacter->GetMesh()->SetRelativeLocation(NewLocation);
-	}
+	if (!PhotoCamera2) return;
+	
+	const FVector CurrentRelativeLocation = PhotoCamera2->PlayerCharacter->GetMesh()->GetRelativeLocation();
+	const float CurrentX = CurrentRelativeLocation.X;
+	const float CurrentY = CurrentRelativeLocation.Y;
+	
+	const FVector InitialLocation = PhotoCamera2->MeshInitialRelativeTransform.GetLocation();
+	const float NewZLocation = InitialLocation.Z + NewValue;
+	const FVector NewLocation = FVector(CurrentX, CurrentY, NewZLocation);
+	PhotoCamera2->PlayerCharacter->GetMesh()->SetRelativeLocation(NewLocation);
+	
 }

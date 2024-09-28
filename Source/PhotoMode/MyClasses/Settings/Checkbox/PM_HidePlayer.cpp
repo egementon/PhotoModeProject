@@ -8,8 +8,7 @@
 
 void UPM_HidePlayer::OnCheckStateChanged(bool bIsChecked)
 {
-	if (PhotoCamera2)
-	{
-		PhotoCamera2->PlayerPawn->SetActorHiddenInGame(bIsChecked);
-	}
+	if (!PhotoCamera2) return;
+	
+	PhotoCamera2->PlayerPawn->SetActorHiddenInGame(bIsChecked);
 }

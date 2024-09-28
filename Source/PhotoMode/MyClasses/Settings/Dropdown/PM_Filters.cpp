@@ -8,14 +8,13 @@
 
 void UPM_Filters::OnDropdownSelectionChanged(FString NewSelectedOption, int32 NewSelectedIndex)
 {
-	if (PhotoCamera2)
-	{
-		UMaterialInstanceDynamic* DynamicMaterial = UMaterialInstanceDynamic::Create(FilterMaterials[NewSelectedIndex], this);
-		DynamicMaterial->SetScalarParameterValue(FName("BlendWeight"), 1.0f);
-		
-		SetPostProcessSettings<USceneCaptureComponent2D>(DynamicMaterial, PhotoCamera2->GetSceneCapture());
-		SetPostProcessSettings<UCameraComponent>(DynamicMaterial, PhotoCamera2->GetCamera());
+	if (!PhotoCamera2) return;
+	
+	UMaterialInstanceDynamic* DynamicMaterial = UMaterialInstanceDynamic::Create(FilterMaterials[NewSelectedIndex], this);
+	DynamicMaterial->SetScalarParameterValue(FName("BlendWeight"), 1.0f);
+	
+	SetPostProcessSettings<USceneCaptureComponent2D>(DynamicMaterial, PhotoCamera2->GetSceneCapture());
+	SetPostProcessSettings<UCameraComponent>(DynamicMaterial, PhotoCamera2->GetCamera());
 
-		MenuWidget->GetFilterIntensity()->ResetSlider();
-	}
+	MenuWidget->GetFilterIntensity()->ResetSlider();
 }

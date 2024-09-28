@@ -38,7 +38,6 @@ void UPM_SettingParent::NativeConstruct()
 	InnerSizeBox = WidgetTree->ConstructWidget<USizeBox>(USizeBox::StaticClass(), TEXT("InnerSizeBox"));
 	SizeBox->AddChild(InnerSizeBox);
 	
-	
 }
 
 void UPM_SettingParent::SetMenuWidget(UPM_MenuWidget* NewMenuWidget)

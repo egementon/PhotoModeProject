@@ -7,8 +7,8 @@
 
 void UPM_FOV::OnSliderValueChanged(float NewValue)
 {
-	if (PhotoCamera2)
-	{
-		PhotoCamera2->GetCamera()->SetFieldOfView(NewValue);
-	}
+	if (!PhotoCamera2) return;
+	
+	PhotoCamera2->GetCamera()->SetFieldOfView(NewValue);
+	
 }
