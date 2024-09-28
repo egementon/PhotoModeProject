@@ -8,25 +8,20 @@
 void UPM_DropdownParent::NativePreConstruct()
 {
 	Super::NativePreConstruct();
-
-	if (Dropdown)
+	
+	for (FString Option : Options)
 	{
-		for (auto Option : Options)
-		{
-			Dropdown->AddOption(Option);	
-		}
-		Dropdown->SetSelectedOption(SelectedOption);
+		Dropdown->AddOption(Option);	
 	}
+	
+	Dropdown->SetSelectedOption(SelectedOption);
 }
 
 void UPM_DropdownParent::NativeConstruct()
 {
 	Super::NativeConstruct();
-
-	if (Dropdown)
-	{
-		Dropdown->OnSelectionChanged.AddDynamic(this, &UPM_DropdownParent::SelectionChangedCallback);
-	}
+	
+	Dropdown->OnSelectionChanged.AddDynamic(this, &UPM_DropdownParent::SelectionChangedCallback);
 }
 
 void UPM_DropdownParent::SelectionChangedCallback(FString SelectedItem, ESelectInfo::Type SelectionType)
@@ -48,5 +43,3 @@ void UPM_DropdownParent::ResetSelection()
 {
 	Dropdown->SetSelectedIndex(0);
 }
-
-

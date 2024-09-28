@@ -20,20 +20,11 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UBillboardComponent* Billboard;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bEnabled;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bAttached;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bUseLightMovement;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float Hue;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float Saturation;
-	
+	float HueValue;
+	float SaturationValue;
 	
 };

@@ -116,9 +116,9 @@ void UPM_SelectedLight::UpdateLightWidgets(APM_Light* SelectedLight)
 	MenuWidget->GetMovement()->SetSelection(SelectionIndex);
 
 
-	MenuWidget->GetLightIntensity()->SetSlider(SelectedLight->PointLight->Intensity);
-	MenuWidget->GetHue()->SetSlider(SelectedLight->Hue);
-	MenuWidget->GetSaturation()->SetSlider(SelectedLight->Saturation);
+	MenuWidget->GetLightIntensity()->SetSliderValue(SelectedLight->PointLight->Intensity);
+	MenuWidget->GetHue()->SetSliderValue(SelectedLight->HueValue);
+	MenuWidget->GetSaturation()->SetSliderValue(SelectedLight->SaturationValue);
 }
 
 void UPM_SelectedLight::ShowSelectedLightBillboard(bool NewVisibility)

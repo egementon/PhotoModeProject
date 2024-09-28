@@ -8,6 +8,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "PM_Light.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/BillboardComponent.h"
 #include "Components/SceneCaptureComponent2D.h"
 #include "Kismet/KismetRenderingLibrary.h"
 #include "Kismet/KismetSystemLibrary.h"
@@ -17,7 +18,6 @@
 // Sets default values
 APhotoCamera::APhotoCamera()
 {
- 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	
 	bUseControllerRotationPitch = true;
@@ -60,12 +60,10 @@ USceneCaptureComponent2D* APhotoCamera::GetSceneCapture()
 	return SceneCaptureComponent;
 }
 
-// Called when the game starts or when spawned
 void APhotoCamera::BeginPlay()
 {
 	Super::BeginPlay();
 
-	//Add Input Mapping Context
 	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
 	{
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
@@ -83,7 +81,6 @@ void APhotoCamera::BeginPlay()
 	}
 }
 
-// Called every frame
 void APhotoCamera::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -91,22 +88,13 @@ void APhotoCamera::Tick(float DeltaTime)
 	LimitMaxDistance();
 }
 
-// Called to bind functionality to input
 void APhotoCamera::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
-	// Set up action bindings
 	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent))
 	{
-		//Moving
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &APhotoCamera::Move);
-
-		//Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &APhotoCamera::Look);
-
-		//Capturing
 		EnhancedInputComponent->BindAction(CaptureAction, ETriggerEvent::Started, this, &APhotoCamera::Capture);
-
-		//Hiding UI
 		EnhancedInputComponent->BindAction(HideUIAction, ETriggerEvent::Started, this, &APhotoCamera::HideUI);
 	}
 }
@@ -208,9 +196,9 @@ void APhotoCamera::Capture()
 		UTextureRenderTarget2D* RenderTarget = UKismetRenderingLibrary::CreateRenderTarget2D(this,1920,1080, RTF_RGBA8);
 		RenderTarget->TargetGamma = PhotoGamma;
 		SceneCaptureComponent->TextureTarget = RenderTarget;
-		HideLightBillboard(false);
+		HideSelectedLightBillboard(false);
 		SceneCaptureComponent->CaptureScene();
-		if (!bIsUIHidden) HideLightBillboard(true);
+		if (!bIsUIHidden) HideSelectedLightBillboard(true);
 
 		// Play Flash Effect
 		if (UUserWidget* FlashWidgetInstance = CreateWidget<UUserWidget>(GetWorld(), FlashWidgetClass))
@@ -235,12 +223,12 @@ void APhotoCamera::HideUI()
 	if (bIsUIHidden)
 	{
 		PhotoModeMenuWidgetInstance->SetVisibility(ESlateVisibility::Collapsed);
-		HideLightBillboard(false);
+		HideSelectedLightBillboard(false);
 	}
 	else
 	{
 		PhotoModeMenuWidgetInstance->SetVisibility(ESlateVisibility::Visible);
-		HideLightBillboard(true);
+		HideSelectedLightBillboard(true);
 	}
 }
 
@@ -252,6 +240,14 @@ void APhotoCamera::Destroyed()
 		PhotoModeMenuWidgetInstance->RemoveFromParent();
 	}
 	DestroyAllLights();
+}
+
+void APhotoCamera::HideSelectedLightBillboard(bool NewVisibility)
+{
+	if (SelectedLight)
+	{
+		SelectedLight->Billboard->SetVisibility(NewVisibility);
+	}
 }
 
 void APhotoCamera::DestroyAllLights()

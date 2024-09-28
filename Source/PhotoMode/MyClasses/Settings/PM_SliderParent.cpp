@@ -8,19 +8,17 @@
 void UPM_SliderParent::NativePreConstruct()
 {
 	Super::NativePreConstruct();
-
-	if (Slider)
-	{
-		Slider->SetValue(DefaultValue);
-		Slider->SetMinValue(MinValue);
-		Slider->SetMaxValue(MaxValue);
-	}
+	
+	Slider->SetValue(DefaultValue);
+	Slider->SetMinValue(MinValue);
+	Slider->SetMaxValue(MaxValue);
+	
 }
 
 void UPM_SliderParent::NativeConstruct()
 {
 	Super::NativeConstruct();
-
+	
 	Slider->OnValueChanged.AddDynamic(this, &UPM_SliderParent::OnSliderValueChanged);
 }
 
@@ -29,7 +27,7 @@ void UPM_SliderParent::OnSliderValueChanged(float NewValue)
 	// Logic will be implemented in subclasses
 }
 
-void UPM_SliderParent::SetSlider(float NewValue)
+void UPM_SliderParent::SetSliderValue(float NewValue)
 {
 	Slider->SetValue(NewValue);
 }

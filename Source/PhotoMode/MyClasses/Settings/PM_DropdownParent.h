@@ -16,8 +16,8 @@ class PHOTOMODE_API UPM_DropdownParent : public UPM_SettingParent
 	GENERATED_BODY()
 
 public:
-	void SetSelection(int32 Index);
 	
+	void SetSelection(int32 Index);
 	void ResetSelection();
 
 protected:

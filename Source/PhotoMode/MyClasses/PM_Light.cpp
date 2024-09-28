@@ -20,8 +20,8 @@ APM_Light::APM_Light()
 	bEnabled = true;
 	bAttached = false;
 	bUseLightMovement = true;
-	Hue = 0.0f;
-	Saturation = 0.0f;
+	HueValue = 0.0f;
+	SaturationValue = 0.0f;
 
 	PointLight->SetIntensity(10000.f);
 	Billboard->SetWorldScale3D(FVector(0.5f, 0.5f, 0.5f));

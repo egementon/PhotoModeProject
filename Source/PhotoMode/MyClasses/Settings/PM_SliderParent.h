@@ -16,7 +16,7 @@ class PHOTOMODE_API UPM_SliderParent : public UPM_SettingParent
 	GENERATED_BODY()
 
 public:
-	void SetSlider(float NewValue);
+	void SetSliderValue(float NewValue);
 	virtual void ResetSlider();
 	float GetSliderValue();
 	
@@ -30,6 +30,7 @@ protected:
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	TObjectPtr<USlider> Slider;
 
+	// Slider variables
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float DefaultValue;
 

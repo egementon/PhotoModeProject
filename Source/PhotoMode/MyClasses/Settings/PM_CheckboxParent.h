@@ -20,6 +20,7 @@ public:
 
 protected:
 
+	virtual void NativePreConstruct() override;
 	virtual void NativeConstruct() override;
 
 	UFUNCTION()

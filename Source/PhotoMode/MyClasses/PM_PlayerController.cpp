@@ -16,7 +16,6 @@ APM_PlayerController::APM_PlayerController()
 	bShouldPerformFullTickWhenPaused = true;
 }
 
-
 void APM_PlayerController::BeginPlay()
 {
 	Super::BeginPlay();
@@ -28,11 +27,9 @@ void APM_PlayerController::BeginPlay()
 	{
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PC->GetLocalPlayer()))
 		{
-			// Create and add the input mapping context
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
-	// Set up action bindings
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(InputComponent))
 	{
 		EnhancedInputComponent->BindAction(PhotoModeAction, ETriggerEvent::Started, this, &APM_PlayerController::TogglePhotoMode);
@@ -42,7 +39,7 @@ void APM_PlayerController::BeginPlay()
 	PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(),0);
 	PlayerCharacter = Cast<ACharacter>(PlayerPawn);
 	
-	// needed to fix TXAA/MotionBlur glitches
+	// Needed to fix TXAA/MotionBlur glitches
 	GetWorld()->bIsCameraMoveableWhenPaused = true;
 }
 
@@ -72,7 +69,7 @@ void APM_PlayerController::TogglePhotoMode()
 			SetInputMode(FInputModeGameAndUI());
 			SetShowMouseCursor(true);
 		}
-		// save player transform to set it back later
+		// Save player transform to get it back later
 		PlayerMeshTransform = PlayerCharacter->GetMesh()->GetComponentTransform();
 	}
 	else

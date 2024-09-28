@@ -77,7 +77,7 @@ protected:
 	TObjectPtr<UPM_SettingParent> Filters;
 
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
-	TObjectPtr<UPM_SettingParent> FilterIntensity;
+	TObjectPtr<UPM_FilterIntensity> FilterIntensity;
 
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	TObjectPtr<UPM_SettingParent> ShowGrid;

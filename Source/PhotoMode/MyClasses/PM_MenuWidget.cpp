@@ -2,16 +2,7 @@
 
 
 #include "PM_MenuWidget.h"
-
 #include "Settings/PM_SettingParent.h"
-#include "Kismet/KismetSystemLibrary.h"
-#include "Settings/Checkbox/PM_AttachToCamera.h"
-#include "Settings/Checkbox/PM_Enabled.h"
-#include "Settings/Dropdown/PM_Movement.h"
-#include "Settings/Slider/PM_FilterIntensity.h"
-#include "Settings/Slider/PM_Hue.h"
-#include "Settings/Slider/PM_LightIntensity.h"
-#include "Settings/Slider/PM_Saturation.h"
 
 void UPM_MenuWidget::SetPhotoCamera(APhotoCamera* Camera)
 {
@@ -50,9 +41,7 @@ void UPM_MenuWidget::SetPhotoCameraForSettingWidgets(APhotoCamera* Camera)
 	{
 		if (SettingParent)
 		{
-			UKismetSystemLibrary::PrintString(this, TEXT("Found Setting Parent: ") + SettingParent->GetName());
-
-			SettingParent->PhotoCamera2 = Camera;
+			SettingParent->SetPhotoCamera(Camera);
 			SettingParent->SetMenuWidget(this);
 		}
 	}
@@ -67,7 +56,7 @@ UPM_SettingParent* UPM_MenuWidget::GetHidePlayer() const { return HidePlayer; }
 UPM_SettingParent* UPM_MenuWidget::GetFOV() const { return FOV; }
 UPM_SettingParent* UPM_MenuWidget::GetCameraRoll() const { return CameraRoll; }
 UPM_SettingParent* UPM_MenuWidget::GetFilters() const { return Filters; }
-UPM_FilterIntensity* UPM_MenuWidget::GetFilterIntensity() const { return Cast<UPM_FilterIntensity>(FilterIntensity); }
+UPM_FilterIntensity* UPM_MenuWidget::GetFilterIntensity() const { return FilterIntensity; }
 UPM_SettingParent* UPM_MenuWidget::GetShowGrid() const { return ShowGrid; }
 UPM_SettingParent* UPM_MenuWidget::GetSelectedLight() const { return SelectedLight; }
 UPM_Enabled* UPM_MenuWidget::GetEnabled() const { return Enabled; }

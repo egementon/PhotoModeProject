@@ -20,20 +20,20 @@ class PHOTOMODE_API UPM_SettingParent : public UUserWidget
 	GENERATED_BODY()
 
 public:
-	
-	virtual void NativePreConstruct() override;
-	virtual void NativeConstruct() override;
 
 	void SetMenuWidget(UPM_MenuWidget* NewMenuWidget);
-	
-	UPROPERTY(BlueprintReadOnly)
-	APhotoCamera* PhotoCamera2;
+
+	void SetPhotoCamera(APhotoCamera* NewPhotoCamera);
+	APhotoCamera* GetPhotoCamera();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FText SettingName = FText::FromString(TEXT("Setting Name"));
 	
 protected:
-
+	
+	virtual void NativePreConstruct() override;
+	virtual void NativeConstruct() override;
+	
 	UPROPERTY(meta = (BindWidget))
 	USizeBox* RootSizeBox;
 
@@ -48,8 +48,10 @@ protected:
 
 	UPROPERTY(meta = (BindWidget))
 	USizeBox* InnerSizeBox;
+	
+	UPROPERTY()
+	APhotoCamera* PhotoCamera2;
 
-	// Menu Widget Reference
 	UPROPERTY()
 	TObjectPtr<UPM_MenuWidget> MenuWidget;
 

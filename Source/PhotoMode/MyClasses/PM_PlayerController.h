@@ -20,11 +20,8 @@ public:
 	APM_PlayerController();
 	
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
-public:
-
+	
 	/** Input and Actions */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputMappingContext* DefaultMappingContext;
@@ -32,10 +29,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* PhotoModeAction;
 	
+	
+private:
 	void TogglePhotoMode();
 	
 	bool bIsPhotoModeActive;
-
+	
 	UPROPERTY(EditAnywhere, Category = Camera)
 	TSubclassOf<AActor> ActorToSpawn;
 
@@ -44,10 +43,9 @@ public:
 
 	UPROPERTY()
 	APawn* PlayerPawn;
-
+	
 	UPROPERTY()
 	ACharacter* PlayerCharacter;
-
-	UPROPERTY()
+	
 	FTransform PlayerMeshTransform;
 };

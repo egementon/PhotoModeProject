@@ -8,7 +8,7 @@
 
 void UPM_Movement::OnDropdownSelectionChanged(FString NewSelectedOption, int32 NewSelectedIndex)
 {
-	if (!PhotoCamera2) return;
+	if (!PhotoCamera2 || !PhotoCamera2->SelectedLight) return;
 	
 	const bool bNew = NewSelectedIndex == 0;
 	

@@ -41,20 +41,6 @@ protected:
 	/** Called for HideUI input */
 	void HideUI();
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
-	// Limit movement
-	void LimitMaxDistance();
-
-	// Get LightAttachLocation
-	UFUNCTION(BlueprintCallable)
-	FVector GetLightAttachLocation() const;
-	
 	/** MappingContext */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputMappingContext* DefaultMappingContext;
@@ -74,6 +60,58 @@ public:
 	/** Capture Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* HideUIAction;
+
+public:
+	// Lights
+	UPROPERTY()
+	APM_Light* SelectedLight;
+
+	UPROPERTY()
+	APM_Light* Light1;
+
+	UPROPERTY()
+	APM_Light* Light2;
+
+	UPROPERTY()
+	APM_Light* Light3;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	USceneComponent* LightAttachLocation;
+
+	bool bUseLightMovement;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float LightMoveSpeed;
+
+	UPROPERTY()
+	APawn* PlayerPawn;
+
+	UPROPERTY()
+	ACharacter* PlayerCharacter;
+
+	FTransform MeshInitialRelativeTransform;
+
+	FVector GetLightAttachLocation() const;
+	
+protected:	
+	virtual void Tick(float DeltaTime) override;
+
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	// Camera component
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
+	UCameraComponent* Camera;
+
+	// Floating Pawn Movement component
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Movement")
+	UFloatingPawnMovement* FloatingPawnMovement;
+
+	// Scene Capture component
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
+	USceneCaptureComponent2D* SceneCaptureComponent;
+
+	// Limit movement
+	void LimitMaxDistance();
 	
 	// Flash Effect Widget
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widget")
@@ -83,7 +121,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widget")
 	TSubclassOf<UPM_MenuWidget> PhotoModeMenuWidgetClass;
 
-	UPROPERTY()
 	bool bIsUIHidden;
 
 	UPROPERTY()
@@ -98,54 +135,9 @@ public:
 	float MaxDistance = 1500.f;
 
 	void Destroyed() override;
-
-	UPROPERTY(BlueprintReadOnly)
-	APawn* PlayerPawn;
-
-	UPROPERTY(BlueprintReadOnly)
-	ACharacter* PlayerCharacter;
-
-	UPROPERTY(BlueprintReadOnly)
-	FTransform MeshInitialRelativeTransform;
-
-	// Lights
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	APM_Light* SelectedLight;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	APM_Light* Light1;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	APM_Light* Light2;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	APM_Light* Light3;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	USceneComponent* LightAttachLocation;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool bUseLightMovement;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float LightMoveSpeed;
-
-	UFUNCTION(BlueprintImplementableEvent, Category = "MyEvents")
-	void HideLightBillboard(bool visibility);
+	
+	void HideSelectedLightBillboard(bool NewVisibility);
 
 	void DestroyAllLights();
-
-protected:	
-	// Camera component
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
-	UCameraComponent* Camera;
-
-	// Floating pawn movement component
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Movement")
-	UFloatingPawnMovement* FloatingPawnMovement;
-
-	// Scene Capture component
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
-	USceneCaptureComponent2D* SceneCaptureComponent;
 	
 };

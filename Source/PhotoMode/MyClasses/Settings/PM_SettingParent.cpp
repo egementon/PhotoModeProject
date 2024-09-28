@@ -12,10 +12,7 @@
 void UPM_SettingParent::NativePreConstruct()
 {
 	Super::NativePreConstruct();
-	if (SettingNameText) //TODO: remove if
-	{
-		SettingNameText->SetText(SettingName);
-	}
+	SettingNameText->SetText(SettingName);
 }
 
 void UPM_SettingParent::NativeConstruct()
@@ -29,7 +26,6 @@ void UPM_SettingParent::NativeConstruct()
 	RootSizeBox->AddChild(HorizontalBox);
 
 	SettingNameText = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass(), TEXT("Text_Name"));
-	//SettingNameText->SetText(FText::FromString("Setting Name")); TODO:Remove?
 	HorizontalBox->AddChildToHorizontalBox(SettingNameText);
 
 	SizeBox = WidgetTree->ConstructWidget<USizeBox>(USizeBox::StaticClass(), TEXT("SizeBox"));
@@ -37,10 +33,19 @@ void UPM_SettingParent::NativeConstruct()
 
 	InnerSizeBox = WidgetTree->ConstructWidget<USizeBox>(USizeBox::StaticClass(), TEXT("InnerSizeBox"));
 	SizeBox->AddChild(InnerSizeBox);
-	
 }
 
 void UPM_SettingParent::SetMenuWidget(UPM_MenuWidget* NewMenuWidget)
 {
 	MenuWidget = NewMenuWidget;
+}
+
+void UPM_SettingParent::SetPhotoCamera(APhotoCamera* NewPhotoCamera)
+{
+	PhotoCamera2 = NewPhotoCamera;
+}
+
+APhotoCamera* UPM_SettingParent::GetPhotoCamera()
+{
+	return PhotoCamera2;
 }
