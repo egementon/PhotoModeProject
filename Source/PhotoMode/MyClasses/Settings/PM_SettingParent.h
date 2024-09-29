@@ -34,6 +34,13 @@ protected:
 	virtual void NativePreConstruct() override;
 	virtual void NativeConstruct() override;
 	
+	UPROPERTY()
+	APhotoCamera* PhotoCamera2;
+
+	UPROPERTY()
+	TObjectPtr<UPM_MenuWidget> MenuWidget;
+
+	// Widget Components
 	UPROPERTY(meta = (BindWidget))
 	USizeBox* RootSizeBox;
 
@@ -48,12 +55,5 @@ protected:
 
 	UPROPERTY(meta = (BindWidget))
 	USizeBox* InnerSizeBox;
-	
-	UPROPERTY()
-	APhotoCamera* PhotoCamera2;
-
-	UPROPERTY()
-	TObjectPtr<UPM_MenuWidget> MenuWidget;
-
 	
 };

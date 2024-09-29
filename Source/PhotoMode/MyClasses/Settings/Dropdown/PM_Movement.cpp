@@ -14,5 +14,4 @@ void UPM_Movement::OnDropdownSelectionChanged(FString NewSelectedOption, int32 N
 	
 	PhotoCamera2->bUseLightMovement = bNew;
 	PhotoCamera2->SelectedLight->bUseLightMovement = bNew;
-	
 }

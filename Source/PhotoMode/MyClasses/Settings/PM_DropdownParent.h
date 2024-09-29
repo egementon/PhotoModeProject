@@ -29,15 +29,15 @@ protected:
 	void SelectionChangedCallback(FString SelectedItem, ESelectInfo::Type SelectionType);
 	
 	virtual void OnDropdownSelectionChanged(FString NewSelectedOption, int32 NewSelectedIndex);
-	
-	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
-	TObjectPtr<UComboBoxString> Dropdown;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FString> Options;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString SelectedOption;
-	
+
+	// Widget Components
+	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UComboBoxString> Dropdown;
 	
 };

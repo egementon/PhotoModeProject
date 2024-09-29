@@ -16,5 +16,4 @@ class PHOTOMODE_API UPM_NorthSouth : public UPM_SliderParent
 
 protected:
 	virtual void OnSliderValueChanged(float NewValue) override;
-
 };

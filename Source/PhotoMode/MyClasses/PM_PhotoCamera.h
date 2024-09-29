@@ -75,6 +75,12 @@ public:
 	UPROPERTY()
 	APM_Light* Light3;
 
+	UPROPERTY()
+	TArray<APM_Light*> LightArray;
+
+	UFUNCTION()
+	APM_Light*& GetLightByIndex(int32 LightIndex);
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	USceneComponent* LightAttachLocation;
 

@@ -16,7 +16,9 @@ class PHOTOMODE_API UPM_CheckboxParent : public UPM_SettingParent
 	GENERATED_BODY()
 
 public:
+	
 	void SetCheckState(bool bIsChecked);
+	void ResetCheckState();
 
 protected:
 
@@ -25,11 +27,12 @@ protected:
 
 	UFUNCTION()
 	virtual void OnCheckStateChanged(bool bIsChecked);
-	
-	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
-	TObjectPtr<UCheckBox> CheckBox;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bIsCheckedAsDefault;
+
+	// Widget Components
+	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
+	TObjectPtr<UCheckBox> CheckBox;
 	
 };

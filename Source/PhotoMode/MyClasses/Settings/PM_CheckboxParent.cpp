@@ -9,10 +9,15 @@ void UPM_CheckboxParent::SetCheckState(bool bIsChecked)
 	CheckBox->SetIsChecked(bIsChecked);
 }
 
+void UPM_CheckboxParent::ResetCheckState()
+{
+	CheckBox->SetIsChecked(bIsCheckedAsDefault);
+}
+
 void UPM_CheckboxParent::NativePreConstruct()
 {
 	Super::NativePreConstruct();
-	SetCheckState(bIsCheckedAsDefault);
+	ResetCheckState();
 }
 
 void UPM_CheckboxParent::NativeConstruct()

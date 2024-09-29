@@ -18,5 +18,4 @@ void UPM_NorthSouth::OnSliderValueChanged(float NewValue)
 	const float NewXLocation = InitialLocation.X + NewValue;
 	const FVector NewLocation = FVector(NewXLocation, CurrentY, CurrentZ);
 	PhotoCamera2->PlayerCharacter->GetMesh()->SetRelativeLocation(NewLocation);
-	
 }

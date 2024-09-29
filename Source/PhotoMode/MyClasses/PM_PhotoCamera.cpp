@@ -79,6 +79,11 @@ void APhotoCamera::BeginPlay()
 		PhotoModeMenuWidgetInstance->SetPhotoCamera(this);
 		PhotoModeMenuWidgetInstance->AddToViewport();
 	}
+
+	// Initialize LightArray with the lights
+	LightArray.Add(Light1);
+	LightArray.Add(Light2);
+	LightArray.Add(Light3);
 }
 
 void APhotoCamera::Tick(float DeltaTime)
@@ -86,6 +91,8 @@ void APhotoCamera::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	LimitMaxDistance();
+
+	UKismetSystemLibrary::PrintString(this, FString::SanitizeFloat(LightArray.Num()));
 }
 
 void APhotoCamera::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -110,6 +117,11 @@ void APhotoCamera::LimitMaxDistance()
 		const FVector NewLocation = PlayerLoc + Direction * MaxDistance;
 		SetActorLocation(NewLocation);
 	}
+}
+
+APM_Light*& APhotoCamera::GetLightByIndex(int32 LightIndex)
+{
+	return LightArray[LightIndex - 1];
 }
 
 FVector APhotoCamera::GetLightAttachLocation() const
@@ -252,8 +264,9 @@ void APhotoCamera::HideSelectedLightBillboard(bool NewVisibility)
 
 void APhotoCamera::DestroyAllLights()
 {
-	if (IsValid(Light1)) Light1->Destroy();
-	if (IsValid(Light2)) Light2->Destroy();
-	if (IsValid(Light3)) Light3->Destroy();
+	for (APM_Light* Light : LightArray)
+	{
+		if (Light) Light->Destroy();
+	}
 	SelectedLight = nullptr;
 }

@@ -41,21 +41,8 @@ void UPM_SelectedLight::SelectLight(int32 Index)
 	}
 
 	ShowSelectedLightBillboard(false);
-
-	APM_Light* NewSelectedLight = nullptr;
-	switch (Index)
-	{
-	case 1:
-		NewSelectedLight = PhotoCamera2->Light1;
-		break;
-	case 2:
-		NewSelectedLight = PhotoCamera2->Light2;
-		break;
-	case 3:
-		NewSelectedLight = PhotoCamera2->Light3;
-		break;
-	default: ;
-	}
+	
+	APM_Light* NewSelectedLight = PhotoCamera2->GetLightByIndex(Index);
 
 	if (NewSelectedLight)
 	{
@@ -67,22 +54,9 @@ void UPM_SelectedLight::SelectLight(int32 Index)
 	else
 	{
 		FActorSpawnParameters SpawnParameters;
-		auto SpawnedLight = GetWorld()->SpawnActor<APM_Light>(PhotoCamera2->GetLightAttachLocation(), FRotator::ZeroRotator);
-
-		switch (Index)
-		{
-		case 1:
-			PhotoCamera2->Light1 = SpawnedLight;
-			break;
-		case 2:
-			PhotoCamera2->Light2 = SpawnedLight;
-			break;
-		case 3:
-			PhotoCamera2->Light3 = SpawnedLight;
-			break;
-		default: ;
-		}
-
+		APM_Light* SpawnedLight = GetWorld()->SpawnActor<APM_Light>(PhotoCamera2->GetLightAttachLocation(), FRotator::ZeroRotator);
+		
+		PhotoCamera2->GetLightByIndex(Index) = SpawnedLight;
 		PhotoCamera2->SelectedLight = SpawnedLight;
 
 		// Reset widgets for every newly spawned lights
@@ -98,8 +72,8 @@ void UPM_SelectedLight::SelectLight(int32 Index)
 void UPM_SelectedLight::ResetLightWidgets()
 {
 	MenuWidget->GetMovement()->ResetSelection();
-	MenuWidget->GetAttachToCamera()->SetCheckState(false);
-	MenuWidget->GetEnabled()->SetCheckState(true);
+	MenuWidget->GetAttachToCamera()->ResetCheckState();
+	MenuWidget->GetEnabled()->ResetCheckState();
 
 	MenuWidget->GetLightIntensity()->ResetSlider();
 	MenuWidget->GetHue()->ResetSlider();
