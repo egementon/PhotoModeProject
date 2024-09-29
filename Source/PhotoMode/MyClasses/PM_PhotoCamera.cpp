@@ -91,8 +91,6 @@ void APhotoCamera::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	LimitMaxDistance();
-
-	UKismetSystemLibrary::PrintString(this, FString::SanitizeFloat(LightArray.Num()));
 }
 
 void APhotoCamera::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
